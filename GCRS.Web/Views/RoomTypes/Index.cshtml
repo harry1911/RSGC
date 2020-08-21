@@ -1,0 +1,44 @@
+﻿@model IEnumerable<GCRS.Base.RoomType>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Tipos de Habitación</h2>
+
+<p>
+    @Html.ActionLink("Crear", "Create")
+</p>
+<table id="table" class="table">
+    <thead>
+
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.RoomTypeID }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.RoomTypeID }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.RoomTypeID })
+        </td>
+    </tr>
+}
+
+   </tbody>
+</table>
+@section scripts
+{
+    <script>
+    $(document).ready(function () { $("#table").DataTable(); })
+    </script>
+}

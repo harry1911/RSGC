@@ -1,0 +1,39 @@
+﻿@model GCRS.Accounting.Concept
+
+@{
+    ViewBag.Title = "Eliminar Concepto";
+}
+
+<h2>Eliminar Concepto</h2>
+
+<h3>Esta seguro de eliminar este objeto?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Income)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Income)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-default" /> |
+            @Html.ActionLink("Regresar", "Index")
+        </div>
+    }
+</div>

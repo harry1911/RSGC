@@ -1,0 +1,131 @@
+﻿@model GCRS.Base.RentPublishing
+
+@{
+    ViewBag.Title = "Detalles de Punlicación de Renta";
+}
+
+<h2>Detalles de Publicación de Renta</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Realtor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CommissionPercent)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.House)
+        </th>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(model => model.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.User.Name)
+        </td>
+        <td>
+            @if (Model.Realtor != null)
+            {
+                @Html.DisplayFor(model => model.Realtor.Name)
+            }
+            else
+            {
+
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.CommissionPercent)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.House.Description)
+        </td>
+    </tr>
+</table>
+
+<h3>Cuartos</h3>
+
+<table class="table">
+    <tr>
+        <th>
+            Descripción
+        </th>
+        <th>
+            Tipo de Cuarto
+        </th>
+        <th>
+            Mts. Cuadrados
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model.Rooms)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoomType.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SquareMts)
+            </td>
+        </tr>
+    }
+</table>
+
+<h3>Rentas</h3>
+
+<table class="table">
+    <tr>
+        <th>
+            Inicio
+        </th>
+        <th>
+            Fin
+        </th>
+        <th>
+            Precio
+        </th>
+    </tr>
+    @foreach (var item in Model.Rents)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Start)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Finish)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RentPrice)
+            </td>
+        </tr>
+    }
+</table>
+
+@if (User.IsInRole("Client"))
+{
+    <p>
+        @Html.ActionLink("Regresar", "ListRentPublishingsClient")
+    </p>
+}
+else
+{
+    <p>
+        @Html.ActionLink("Regresar", "ListAcceptedRequest")
+    </p>
+}

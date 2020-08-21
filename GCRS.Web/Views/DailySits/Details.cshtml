@@ -1,0 +1,40 @@
+﻿@model GCRS.Accounting.DailySit
+
+@{
+    ViewBag.Title = "Detalles de Asiento Diario";
+}
+
+<h2>Detalles de Asiento Diario</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeOfCompensation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TypeOfCompensation.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Value)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Value)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Regresar", "Index")
+</p>

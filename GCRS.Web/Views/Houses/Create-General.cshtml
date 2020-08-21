@@ -1,0 +1,80 @@
+﻿@model GCRS.Base.House
+
+@{
+    ViewBag.Title = "Create-General";
+}
+
+<h4>Datos Generales</h4>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <div class="form-group my-form-container4">
+            @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group my-form-container4">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group my-form-container4">
+            @Html.LabelFor(model => model.SquareMts, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SquareMts, new { htmlAttributes = new { @class = "form-control", @style = "display: inline-block" } })
+                @*<label style="font-size:25px">*</label>*@
+                @Html.ValidationMessageFor(model => model.SquareMts, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group my-form-container4">
+            @Html.LabelFor(model => model.WaterFreq, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.WaterFreq, new { htmlAttributes = new { @class = "form-control", @style = "display: inline-block" } })
+                @*<label style="font-size:25px">*</label>*@
+                @Html.ValidationMessageFor(model => model.WaterFreq, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @{
+            ViewDataDictionary viewData = new ViewDataDictionary();
+            viewData.Add(new KeyValuePair<string, object>("details", false));
+        }
+
+        <div class="form-group my-form-container4">
+            @Html.LabelFor(model => model.Features, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10 one-to-many-table-container">
+                    <div class="dform-drpdwn">
+                        @Html.DropDownList("FeatureID", String.Empty)
+                    </div>
+                    <div class="dform-btn">
+                        <input class="btn btn-primary" type="button" onclick="addHouseFeature()" value="Añadir">
+                    </div>
+                @Html.Partial("FeaturesTablePartial", new List<GCRS.Base.Feature>(), viewData)
+            </div>
+        </div>
+    </div>
+}
+
+<div class="form-group">
+    @*@Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "control-label col-md-2" })*@
+    <div class="col-md-10">
+        <input class="form-control text-box single-line" id="Coordinates" name="Coordinates" type="text" value="" readonly="readonly" hidden="hidden">
+    </div>
+</div>
+
+<div class="card" style="width:800px; height:400px">
+    <div id="map-viewer" class="card-img-top" style="width:800px; height:400px"></div>
+</div>
+

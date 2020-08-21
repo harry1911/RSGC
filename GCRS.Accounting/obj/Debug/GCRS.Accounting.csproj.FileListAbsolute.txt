@@ -1,0 +1,6 @@
+D:\Jose\Universidad\ResumenUniversidad\003\IS\IS\GCRS.Accounting\bin\Debug\GCRS.Accounting.dll
+D:\Jose\Universidad\ResumenUniversidad\003\IS\IS\GCRS.Accounting\bin\Debug\GCRS.Accounting.pdb
+D:\Jose\Universidad\ResumenUniversidad\003\IS\IS\GCRS.Accounting\obj\Debug\GCRS.Accounting.csprojAssemblyReference.cache
+D:\Jose\Universidad\ResumenUniversidad\003\IS\IS\GCRS.Accounting\obj\Debug\GCRS.Accounting.csproj.CoreCompileInputs.cache
+D:\Jose\Universidad\ResumenUniversidad\003\IS\IS\GCRS.Accounting\obj\Debug\GCRS.Accounting.dll
+D:\Jose\Universidad\ResumenUniversidad\003\IS\IS\GCRS.Accounting\obj\Debug\GCRS.Accounting.pdb

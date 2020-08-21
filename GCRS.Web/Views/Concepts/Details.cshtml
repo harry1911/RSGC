@@ -1,0 +1,33 @@
+﻿@model GCRS.Accounting.Concept
+
+@{
+    ViewBag.Title = "Detalles de Concepto";
+}
+
+<h2>Detalles de Concepto</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Income)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Income)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.ConceptID }) |
+    @Html.ActionLink("Regresar", "Index")
+</p>

@@ -1,0 +1,255 @@
+﻿@model GCRS.Base.House
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Crear Casa</h2>
+<div>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#first" aria-controls="first" role="tab" data-toggle="tab">Datos Generales</a></li>
+        <li role="presentation"><a href="#second" aria-controls="second" role="tab" data-toggle="tab">Habitaciones</a></li>
+        @*<li role="presentation"><a href="#third" aria-controls="third" role="tab" data-toggle="tab">Localización</a></li>*@
+    </ul>
+
+    <div class="form-horizontal">
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="first">
+                @Html.Partial("Create-General", Model)
+               @* @Html.Partial("Create-Map", Model)*@
+            </div>
+            <div role="tabpanel" class="tab-pane" id="second">
+                @Html.Partial("Create-Room", Model)
+            </div>
+            @*<div role="tabpanel" class="tab-pane" id="third">
+               
+            </div>*@
+        </div>
+    </div>
+</div>
+
+
+@using (Html.BeginForm())
+{
+    <div class="form-group" style="padding-top:15px">
+
+        <div class="col-md-offset-2 col-md-10">
+            <input type="button" value="Salvar" class="btn btn-default" onclick="upload()" />
+        </div>
+    </div>
+}
+
+@section scripts{
+    <script>
+        document.getElementById("RoomTypeID").style.display = "inline-block";
+
+        $(".event_list").each(function (index, element) {
+            element.addEventListener('click', remove);
+        });
+
+        function createRoom(id) {
+            var table = document.getElementById("rooms_table");
+
+            var row = table.rows[id].childNodes;
+            var Room = new Object();
+
+            Room.RoomTypeID = row[0].id;
+            Room.Description = row[1].innerHTML;
+            Room.SquareMts= row[2].innerHTML;
+            var features = new Array();
+            var features_list = row[3].firstChild;
+            for (var i = 0; i < row[3].firstChild.childElementCount; i++) {
+                var feature = new Object();
+                feature.RoomFeatureID = features_list.childNodes[i].id;
+                feature.Name="";
+                feature.Description="";
+                features.push(feature);
+            }
+            Room.Features = features;
+
+            return Room;
+        }
+
+        function createHouse() {
+            var House = new Object();
+
+            House.Address = document.getElementById("Address").value;
+            House.SquareMts = document.getElementById("SquareMts").value;
+            House.Description = document.getElementById("Description").value;
+            House.WaterFreq = document.getElementById("WaterFreq").value;
+
+            var table = document.getElementById("rooms_table");
+            var rooms=new Array(); 
+
+            for(var i=1; i<table.rows.length; i++)
+                rooms.push(createRoom(i));
+
+            House.Rooms = rooms;
+
+            var features_list = document.getElementById("features_table").rows;
+            var features = new Array();
+            for (var i = 1; i < features_list.length; i++) {
+                var feature = new Object();
+                feature.FeatureID = features_list[i].id;
+                feature.Name = "";
+                feature.Description = "";
+                features.push(feature);
+            }
+
+            House.Features = features;
+            return House;
+        }
+
+        function upload() {
+            var House = createHouse();
+            var Coordinates = $("#Coordinates").val();
+
+            var Data = new Object();
+            Data.House = House;
+            Data.Coordinates = Coordinates;
+
+            console.debug(Data);
+
+            @{string url = "../Houses/Create/";}
+            $.ajax({
+                url: "@url",
+                type: "POST",
+                dataType: "json",
+                data: Data,
+                success: function (data, textStatus, xhr) {
+                    if (data.validations)
+                    {
+                        validate(data.validations);
+                    }
+                    console.debug("ja ja");
+                    console.debug(data);
+                    if (data.redirects) {
+                        window.location.href = "/Houses";
+                    }
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log("tu madre");
+                    console.log(errorThrown);
+                }
+            });
+            return House;
+        }
+
+        function addHouseFeature() {
+            var table_id = "features_table";
+            var value_id = "FeatureID";
+            var tbody = document.getElementsByTagName("tbody")[0];
+            var table = document.getElementById(table_id);
+            var new_row = document.createElement("tr");
+            var cBox = document.getElementById(value_id);
+            new_row.id = cBox.value;
+            for (var i = 0; i < table.rows.length; i++)
+                if (new_row.id == table.rows[i].id)
+                    return;
+            var phone = document.createTextNode(cBox.options[cBox.selectedIndex].text);
+            var phone_node = document.createElement("td");
+            var btn_rem_node = document.createElement("td");
+            var btn_rem = document.createElement("a");
+            btn_rem.href = "javascript:void(0)";
+            btn_rem.addEventListener("click", remove);
+            btn_rem.innerHTML = "Remover";
+            btn_rem_node.appendChild(btn_rem);
+            phone_node.appendChild(phone);
+            new_row.appendChild(phone_node);
+            new_row.appendChild(btn_rem_node);
+            tbody.appendChild(new_row);
+        }
+
+        function addRoomFeature() {
+            var table_id = "roomfeatures_table";
+            var value_id = "RoomFeatureID";
+            var table = document.getElementById(table_id);
+            var tbody = table.firstElementChild;
+            var new_row = document.createElement("tr");
+            var cBox = document.getElementById(value_id);
+            new_row.id = cBox.value;
+            for (var i = 0; i < table.rows.length; i++)
+                if (new_row.id == table.rows[i].id)
+                    return;
+            var phone = document.createTextNode(cBox.options[cBox.selectedIndex].text);
+            var phone_node = document.createElement("td");
+            var btn_rem_node = document.createElement("td");
+            var btn_rem = document.createElement("a");
+            btn_rem.href = "javascript:void(0)";
+            btn_rem.addEventListener("click", remove);
+            btn_rem.innerHTML = "Remover";
+            btn_rem_node.appendChild(btn_rem);
+            phone_node.appendChild(phone);
+            new_row.appendChild(phone_node);
+            new_row.appendChild(btn_rem_node);
+            tbody.appendChild(new_row);
+        }
+
+        function addRoom() {
+            var table_id = "rooms_table";
+            var roomtpye_id = "RoomTypeID";
+            var decription_id = "RoomDescription";
+            var sqremts_id = "RoomSquareMts";
+            var features_id = "roomfeatures_table";
+
+            var features_table = document.getElementById(features_id);
+            var features_list=document.createElement("ul");
+            for (var i = 1; i < features_table.rows.length; i++) {
+                var feature = document.createElement("li");
+                var feat = features_table.rows[i];
+                feature.id = feat.id;
+                feature.appendChild(document.createTextNode(feat.firstChild.innerHTML));
+                features_list.appendChild(feature);
+            }
+
+            var table = document.getElementById(table_id);
+            var tbody = table.firstElementChild;
+
+            var new_row = document.createElement("tr");
+
+            var cBox = document.getElementById(roomtpye_id);
+
+            var roomtpye = document.createTextNode(cBox.options[cBox.selectedIndex].text);
+            var roomtpye_node = document.createElement("td");
+            roomtpye_node.id = cBox.value;//el id del roomType esta en el id del td
+
+
+            var decription = document.createTextNode(document.getElementById(decription_id).value);
+            var decription_node = document.createElement("td");
+
+            var sqremts = document.createTextNode(document.getElementById(sqremts_id).value);
+            var sqremts_node = document.createElement("td");
+
+            var features_node = document.createElement("td");
+
+            var btn_rem_node = document.createElement("td");
+            var btn_rem = document.createElement("a");
+            btn_rem.href = "javascript:void(0)";
+            btn_rem.addEventListener("click", remove);
+            btn_rem.innerHTML = "Remover";
+            btn_rem_node.appendChild(btn_rem);
+
+            roomtpye_node.appendChild(roomtpye);
+            decription_node.appendChild(decription);
+            sqremts_node.appendChild(sqremts);
+            features_node.appendChild(features_list);
+
+            new_row.appendChild(roomtpye_node);
+            new_row.appendChild(decription_node);
+            new_row.appendChild(sqremts_node);
+            new_row.appendChild(features_node);
+            new_row.appendChild(btn_rem_node);
+
+            tbody.appendChild(new_row);
+        }
+        function remove() {
+            var td = this.parentNode;
+            var tr = td.parentNode;
+            var tbody = tr.parentNode;
+            tbody.removeChild(tr);
+        }
+    </script>
+
+}

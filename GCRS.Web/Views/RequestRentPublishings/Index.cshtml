@@ -1,0 +1,57 @@
+﻿@model IEnumerable<GCRS.Base.RequestRentPublishing>
+
+@{
+    ViewBag.Title = "Índice";
+}
+
+<h2>Índice</h2>
+
+<p>
+    @Html.ActionLink("Crear Nuevo", "Crear")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CommissionPercent)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastChange)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RequestStatus)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CommissionPercent)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastChange)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RequestStatus)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.RequestPublishingID }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.RequestPublishingID }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.RequestPublishingID })
+        </td>
+    </tr>
+}
+
+</table>

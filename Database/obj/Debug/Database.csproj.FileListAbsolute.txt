@@ -1,0 +1,4 @@
+D:\Jose\Universidad\ResumenUniversidad\003\IS\IS\Database\obj\Debug\Database.csprojAssemblyReference.cache
+D:\Jose\Universidad\ResumenUniversidad\003\IS\IS\Database\obj\Debug\Database.Migrations.migrationTotal.resources
+D:\Jose\Universidad\ResumenUniversidad\003\IS\IS\Database\obj\Debug\Database.csproj.GenerateResource.cache
+D:\Jose\Universidad\ResumenUniversidad\003\IS\IS\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache

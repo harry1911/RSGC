@@ -1,0 +1,199 @@
+﻿@model GCRS.Base.RequestRentPublishing
+
+@{
+    ViewBag.Title = "Detalles";
+}
+
+<h2>Detalles de Publicación de Renta</h2>
+
+@*<div>
+    <h4>RequestRentPublishing</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            User
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.Name)
+        </dd>
+
+        <dt>
+            Realtor
+        </dt>
+       
+        <dd>
+            @if (Model.Realtor != null)
+            {
+                @Html.DisplayFor(model => model.Realtor.Name)
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CommissionPercent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CommissionPercent)
+        </dd>
+
+        <dt>
+            House
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.House.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RequestStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RequestStatus)
+        </dd>
+
+    </dl>
+</div>*@
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Realtor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CommissionPercent)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.House)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RequestStatus)
+        </th>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(model => model.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.User.Name)
+        </td>
+        <td>
+            @if (Model.Realtor != null)
+            {
+                @Html.DisplayFor(model => model.Realtor.Name)
+            }
+            else
+            {
+                
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.CommissionPercent)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.House.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.RequestStatus)
+        </td>
+    </tr>
+</table>
+
+<h3>Cuartos</h3>
+
+<table class="table">
+    <tr>
+        <th>
+            Descripción
+        </th>
+        <th>
+            Tipo de Cuarto
+        </th>        
+        <th>
+            Mts. Cuadrados
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model.Rooms)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoomType.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SquareMts)
+            </td>
+        </tr>
+    }
+</table>
+
+
+<dl class="dl-horizontal">
+    <dt>
+        @Html.DisplayNameFor(model => model.Images)
+    </dt>
+
+    <dd>
+        @foreach (var image in Model.Images)
+            {
+            <img src="@(image.Path!=null?Url.Content(image.Path):Url.Content("~/Content/Pictures/noimage.jpg"))" alt="test" width="256" height="256">
+        }
+    </dd>
+</dl>
+
+@if (User.IsInRole("Client"))
+{
+    <p>
+        @Html.ActionLink("Regresar", "ListRequestClient")
+    </p>
+}
+else
+{
+    if (Model.RequestStatus == GCRS.Base.RequestStatus.Request)
+    {
+        <p>
+            @Html.ActionLink("Regresar", "ListNonAttendedRequest")
+        </p>
+    }
+    else
+    {
+        <p>
+            @Html.ActionLink("Regresar", "ListAttendedRequest")
+        </p>
+    }
+}
+
+
+

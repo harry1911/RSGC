@@ -1,0 +1,18 @@
+﻿@model GCRS.Base.House
+
+@{
+    ViewBag.Title = "Create'Room";
+}
+
+<h4>Habitaciones</h4>
+    @{
+        ViewDataDictionary viewData = new ViewDataDictionary();
+        viewData.Add(new KeyValuePair<string, object>("details", false));
+    }
+
+    <div>
+        @Html.Partial("Create-IndexRoomPartial", new List<GCRS.Base.Room>(), viewData)
+    </div>
+    <div>
+        @Html.Partial("Create-RoomPartial", new GCRS.Base.Room())
+    </div>

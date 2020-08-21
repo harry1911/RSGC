@@ -1,0 +1,192 @@
+﻿@*@model IEnumerable<GCRS.Base.House>*@
+
+@{
+    ViewBag.Title = "Consultas ";
+    string[] filterOpt = ViewBag.FilterOpt;
+}
+@*@{
+        string url = "/Query?productName=" + filterOpt[0] + "&minAmount=" + filterOpt[1] + "&maxAmount=" + filterOpt[2] + "&labels=" + filterOpt[3];
+        //string url = "/Products";
+    }*@
+
+<h2>Resultado de la consulta</h2>
+<p>
+    <a href="javascript:void(0)" onclick="invNav()">Filtrar</a>
+    |
+    <a href="/Query/Index">Limpiar Filtro</a>
+</p>
+
+<div id="shown">
+    <table class="table" id="houses-table">
+        @if (ViewBag.TableData.Length > 0)
+        {
+            <tr>
+                @foreach (var head in ViewBag.TableData[0].Keys)
+                {
+                    if (head != "id" && head != "Images")
+                    {
+                        <th>
+                            @head
+                        </th>
+                    }
+                }
+                <th></th>
+                <th></th>
+            </tr>
+
+            foreach (var row in ViewBag.TableData)
+            {
+                <tr>
+                    @foreach (var cell in ViewBag.TableData[0].Keys)
+                    {
+                        if (cell != "id" && cell != "Images")
+                        {
+                            <td>
+                                @row[cell]
+                            </td>
+                        }
+                    }
+
+                    <td>
+                        @*<img src="@Url.Content(@row["Images"])" alt="test" width="150" height="150">*@
+                    </td>
+
+                    <td>
+                        @Html.ActionLink("Ver más...", "GetDetails", new { id = row["id"] })
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+
+</div>
+
+<div class="sidenav sidenav-rigth" id="mySidenavMap">
+    <div class="sidenav-elem">
+        <label class="header-label">
+            Consulta Espacial
+        </label>
+        <a href="javascript:void(0)" class="closebtn" onclick="invNav()">&times;</a>
+    </div>
+
+    <div class="card sidenav-column" style="width:500px;height:500px">
+        <div id="map-viewer" class="card-img-top sidenav-elem" style="width:500px;height:500px"></div>
+    </div>
+</div>
+
+<div class="sidenav sidenav-left" id="mySidenav">
+    @using (Html.BeginForm("IndexPost", "Query", FormMethod.Post, new { id = "houses-form" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="sidenav-elem">
+            <label class="header-label">
+                Consulta Alfanumérica
+            </label>
+            <a href="javascript:void(0)" class="closebtn" onclick="invNav()">&times;</a>
+        </div>
+
+        <div class="sidenav-column">
+            <div class="my-form-container10">
+                <div class="sidenav-elem">
+                    <label>Metros cuadrados(Máx)</label>
+                    <div class="form-group">
+                        <input id="sqrtMtMax" class="form-control" type="number" name="sqrtMtMax" value="@filterOpt[0]">
+                    </div>
+                </div>
+
+                <div class="sidenav-elem">
+                    <label>Metros cuadrados(Mín)</label>
+                    <div class="form-group">
+                        <input id="sqrtMtMin" class="form-control" type="number" name="sqrtMtMin" value="@filterOpt[1]">
+                    </div>
+                </div>
+            </div>
+            <div class="my-form-container10">
+                <div class="sidenav-elem">
+                    <label>Precio(Máx)</label>
+                    <div class="form-group">
+                        <input id="priceMax" class="form-control" type="number" name="priceMax" value="@filterOpt[8]">
+                    </div>
+                </div>
+
+                <div class="sidenav-elem">
+                    <label>Precio(Mín)</label>
+                    <div class="form-group">
+                        <input id="priceMin" class="form-control" type="number" name="priceMin" value="@filterOpt[9]">
+                    </div>
+                </div>
+            </div>
+
+            <div class="my-form-container10">
+                <div class="sidenav-elem">
+                    <label>Dirección</label>
+                    <div class="form-group">
+                        <input id="address" class="form-control" type="text" name="address" value="@filterOpt[2]">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidenav-column">
+            <div class="my-form-container10">
+                <div class="sidenav-elem">
+                    <label>Cantidad de cuartos(Máx)</label>
+                    <div class="form-group">
+                        <input id="bedrmsMax" class="form-control" type="number" name="bedrmsMax" value="@filterOpt[3]">
+                    </div>
+                </div>
+
+                <div class="sidenav-elem">
+                    <label>Cantidad de cuartos(Mín)</label>
+                    <div class="form-group">
+                        <input id="bedrmsMin" class="form-control" type="number" name="bedrmsMin" value="@filterOpt[4]">
+                    </div>
+                </div>
+            </div>
+
+            <div class="my-form-container10">
+                <div class="sidenav-elem">
+                    <label>Cantidad de baños(Máx)</label>
+                    <div class="form-group">
+                        <input id="bathMax" class="form-control" type="number" name="bathMax" value="@filterOpt[6]">
+                    </div>
+                </div>
+
+                <div class="sidenav-elem">
+                    <label>Cantidad de baños(Mín)</label>
+                    <div class="form-group">
+                        <input id="bathMin" class="form-control" type="number" name="bathMin" value="@filterOpt[7]">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="my-form-container10">
+            <div class="sidenav-elem-long">
+                <label>Atributos de la casa</label>
+                <div class="form-group">
+                    <input id="features" class="form-control" type="text" name="features" value="@filterOpt[5]">
+
+                    <table>
+                        <tr>
+                            <td>
+                                @Html.DropDownList("Features", String.Empty)
+                            </td>
+                            <td>
+                                <a href="javascript:void(0)" class="closebtn_relative" onclick="addElement()">Añadir</a>
+                            </td>
+                            <td>
+                                <a href="javascript:void(0)" class="closebtn_relative" onclick="clearTBox()">Limpiar</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidenav-elem">
+            <input class="btn btn-default" type="submit" id="butSend" value="Filtrar">
+        </div>
+
+    }
+</div>

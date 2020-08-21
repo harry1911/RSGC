@@ -1,0 +1,56 @@
+﻿@model IEnumerable<GCRS.Base.Room>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Habitaciones</h2>
+
+<p>
+    @Html.ActionLink("Crear", "Create")
+</p>
+<table id="table" class="table">
+    <thead>
+
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.RoomTypeID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SquareMts)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.RoomType.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SquareMts)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.RoomID }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.RoomID }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.RoomID })
+        </td>
+    </tr>
+}
+    </tbody>
+
+</table>
+@section scripts
+{
+    <script>
+    $(document).ready(function () { $("#table").DataTable(); })
+    </script>
+}

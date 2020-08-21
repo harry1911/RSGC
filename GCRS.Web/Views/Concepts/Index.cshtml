@@ -1,0 +1,39 @@
+﻿@model IEnumerable<GCRS.Accounting.Concept>
+
+@{
+    ViewBag.Title = "Lista de Conceptos";
+}
+
+<h2>Lista de Conceptos</h2>
+
+<p>
+    @Html.ActionLink("Crear Nuevo", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Income)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Income)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.ConceptID }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.ConceptID }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.ConceptID })
+        </td>
+    </tr>
+}
+
+</table>

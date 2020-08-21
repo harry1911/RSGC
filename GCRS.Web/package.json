@@ -1,0 +1,40 @@
+{
+  "version": "1.0.0",
+  "name": "gcrs-web",
+  "private": true,
+  "scripts": {
+    "postinstall": "npm prune",
+    "build-dev": "npm run clean && SET NODE_ENV=development && webpack --color",
+    "build-prod": "npm run clean && SET NODE_ENV=production && webpack --color",
+    "clean": "rimraf wwwroot/*",
+    "start": "npm run clean && SET NODE_ENV=development && webpack --watch --color"
+  },
+  "dependencies": {
+    "aurelia-route-recognizer": "^1.1.1",
+    "bootstrap": "4.0.0-beta",
+    "chart.js": "^2.7.0",
+    "jquery": "3.2.1",
+    "moment": "^2.18.1",
+    "ol": "^4.4.2",
+    "popper.js": "1.12.6",
+    "qs": "^6.5.1"
+  },
+  "devDependencies": {
+    "@types/chart.js": "^2.6.10",
+    "@types/jquery": "^3.2.12",
+    "@types/openlayers": "^4.3.8",
+    "@types/qs": "^6.5.1",
+    "awesome-typescript-loader": "^3.2.3",
+    "rimraf": "^2.6.1",
+    "ts-loader": "^2.3.2",
+    "tslint": "^5.5.0",
+    "tslint-loader": "^3.5.3",
+    "typescript": "^2.5.3",
+    "webpack": "^3.6.0"
+  },
+  "-vs-binding": {
+    "ProjectOpened": [
+      "start"
+    ]
+  }
+}

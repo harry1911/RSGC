@@ -1,0 +1,44 @@
+﻿@model IEnumerable<GCRS.Base.RentRegistry>
+
+@{
+    ViewBag.Title = "Rentas Aceptadas";
+}
+
+<h2>Rentas Aceptadas</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Start)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Finish)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RentPrice)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Start)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Finish)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RentPrice)
+        </td>
+        <td>
+            <div class="form-group">
+                <div class="btn-group btn-group-sm" data-toggle="buttons">
+                    <input type="submit" value="Detalles" class="btn btn-primary" onclick="location.href='@Url.Action("Details", "RentRegistries", new { id1 = (int)ViewBag.ID, id2 = item.RegistryID })'" />
+                </div>
+            </div>
+        </td>
+    </tr>
+}
+
+</table>

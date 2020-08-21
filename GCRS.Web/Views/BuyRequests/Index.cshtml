@@ -1,0 +1,51 @@
+﻿@model IEnumerable<GCRS.Base.BuyRequest>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.RequestPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Negotiation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.State)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastModification)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.RequestPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Negotiation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.State)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastModification)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.BuyRequestID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.BuyRequestID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.BuyRequestID })
+        </td>
+    </tr>
+}
+
+</table>

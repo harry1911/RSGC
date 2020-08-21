@@ -1,0 +1,53 @@
+﻿@model IEnumerable<GCRS.Base.SalePublishing>
+
+@{
+    ViewBag.Title = "Ventas aceptadas";
+}
+
+<h2>Ventas aceptadas</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.User)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CommissionPercent)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CommissionPercent)
+                </td>
+                <td>
+                    <div class="form-group">
+                        <div class="btn-group btn-group-sm" data-toggle="buttons">
+                            <input type="submit" value="Ver compradores" class="btn btn-success" onclick="location.href='@Url.Action("ListSellRealtor", "BuyRequests", new { id = item.PublishingID })'" />
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    }
+
+</table>

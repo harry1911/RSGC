@@ -1,0 +1,28 @@
+﻿@model IEnumerable<GCRS.Base.RoomFeature>
+
+<table id="roomfeatures_table" class="table">
+    <tr">
+        <th>
+            @Html.DisplayNameFor(model=>model.Name)
+        </th>
+        @if (!(bool)ViewData["details"])
+        {
+            <th></th>
+        }
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr id="@item.RoomFeatureID">
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @if (!(bool)ViewData["details"])
+                {
+                    <a href="javascript:void(0)" class="event_list btn btn-link">Remover</a>
+                }
+            </td>
+        </tr>
+    }
+</table>

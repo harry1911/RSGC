@@ -1,0 +1,68 @@
+﻿@model IEnumerable<GCRS.Base.BuyRequest>
+
+@{
+    ViewBag.Title = "Compradores";
+}
+
+<h2>Compradores</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Client.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RequestPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Negotiation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastModification)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Client.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RequestPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Negotiation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastModification)
+                </td>
+                <td>
+                    <div class="form-group">
+                        @if (item.BuyState == GCRS.Base.BuyRequest.States.Pending)
+                        {
+                            if (item.LastModification == GCRS.Base.Change.Client)
+                            {
+                                <input type="submit" value="Negociar con cliente" class="btn btn-success" onclick="location.href='@Url.Action("RealtorNegotiateClient", "BuyRequests", new { id = item.BuyRequestID })'" />
+                                <input type="submit" value="Aprobar al cliente" class="btn btn-success" onclick="location.href='@Url.Action("RealtorPassOwner", "BuyRequests", new { id = item.BuyRequestID })'" />
+                            }
+                            if (item.LastModification == GCRS.Base.Change.Owner)
+                            {
+                                <input type="submit" value="Negociar con dueño" class="btn btn-success" onclick="location.href='@Url.Action("RealtorNegotiateOwner", "BuyRequests", new { id = item.BuyRequestID })'" />
+                                <input type="submit" value="Aprobar al dueño" class="btn btn-success" onclick="location.href='@Url.Action("RealtorPassClient", "BuyRequests", new { id = item.BuyRequestID })'" />
+                            }
+                        }
+                        @if (item.BuyState != GCRS.Base.BuyRequest.States.Reject && item.BuyState != GCRS.Base.BuyRequest.States.Sell)
+                        {
+                            <input type="submit" value="Rechazar" class="btn btn-danger" onclick="location.href='@Url.Action("Reject", "BuyRequests", new { id = item.BuyRequestID })'" />
+                        }
+                        <input type="submit" value="Details" class="btn btn-success" onclick="location.href='@Url.Action("Details", "BuyRequests", new { id = item.BuyRequestID })'" />
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    }
+
+</table>

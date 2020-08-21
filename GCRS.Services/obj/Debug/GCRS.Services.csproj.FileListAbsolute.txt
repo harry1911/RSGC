@@ -1,0 +1,15 @@
+D:\IS\GCRS.Services\bin\Debug\GCRS.Services.dll
+D:\IS\GCRS.Services\bin\Debug\GCRS.Services.pdb
+D:\IS\GCRS.Services\bin\Debug\GCRS.Base.dll
+D:\IS\GCRS.Services\bin\Debug\EntityFramework.dll
+D:\IS\GCRS.Services\bin\Debug\GCRS.Base.pdb
+D:\IS\GCRS.Services\bin\Debug\EntityFramework.xml
+D:\IS\GCRS.Services\obj\Debug\GCRS.Services.csprojResolveAssemblyReference.cache
+D:\IS\GCRS.Services\obj\Debug\GCRS.Services.dll
+D:\IS\GCRS.Services\obj\Debug\GCRS.Services.pdb
+D:\IS\GCRS.Services\bin\Debug\GCRS.Accounting.dll
+D:\IS\GCRS.Services\bin\Debug\GCRS.Accounting.pdb
+D:\Jose\Universidad\ResumenUniversidad\003\IS\IS\GCRS.Services\obj\Debug\GCRS.Services.csprojAssemblyReference.cache
+D:\Jose\Universidad\ResumenUniversidad\003\IS\IS\GCRS.Services\obj\Debug\GCRS.Services.csproj.CoreCompileInputs.cache
+D:\Jose\Universidad\ResumenUniversidad\003\IS\IS\GCRS.Services\obj\Debug\GCRS.Services.dll
+D:\Jose\Universidad\ResumenUniversidad\003\IS\IS\GCRS.Services\obj\Debug\GCRS.Services.pdb

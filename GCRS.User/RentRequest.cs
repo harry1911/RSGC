@@ -1,0 +1,177 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace GCRS.Base
+{
+    public class RentRequest
+    {
+        public enum Estados { Pending, Pending2, Negotiation, Negotiation2, Accept, Reject }
+
+        public int RentRequestID { get; set; }
+        [Display(Name = "Cliente")]
+        public virtual User Client { get; set; }
+        [Display(Name = "Inicio")]
+        public DateTime Start { get; set; }
+        [Display(Name = "Fin")]
+        public DateTime Finish { get; set; }
+        [Display(Name = "Precio por noche")]
+        public double RentPrice { get; set; }
+        [Display(Name = "Estado")]
+        public Estados RentState { get; set; }
+        [Display(Name = "Último Cambio")]
+        public Change LastChange { get; set; }
+        [Display(Name = "Publicación")]
+        public virtual RentPublishing Publishing { get; set; }
+        public virtual ICollection<Service> Services { get; set; }
+
+        #region FLOW
+        public bool InitToPending(User _user, RentPublishing _rentPublishing, List<Service> _services)
+        {
+            var rents = _rentPublishing.Rents.Where(x => !(Start >= x.Finish || x.Start >= Finish)).Count();
+            if (Start < Finish && rents == 0)
+            {
+                //Client = _user;
+                //Publishing = _rentPublishing;
+                //Services = _services;
+                Client = null;
+                Publishing = null;
+                Services = null;
+                RentState = Estados.Pending;
+                LastChange = Change.Client;
+                return true;
+            }
+            return false;
+        }
+        public void PendingToPending2()
+        {
+            RentState = Estados.Pending2;
+            //LastChange = Change.Realtor;
+        }
+        public void Pending2ToPending()
+        {
+            RentState = Estados.Pending;
+            //LastChange = Change.Realtor;
+        }
+        public bool PendingToNegotiation(double _price, DateTime _start, DateTime _finish, List<Service> _services, List
+            <RentRegistry> _rents)
+        {
+            var rents = _rents.Where(x => !(Start >= x.Finish || x.Start >= Finish)).Count();
+            if (Start < Finish && rents == 0)
+            {
+                if (RentPrice != _price || _start != Start || _finish != Finish || Different(_services.Select(x => x.ServiceID).ToList(), Services.Select(x => x.ServiceID).ToList()))
+                    LastChange = Change.Realtor;
+                RentState = Estados.Negotiation;
+                return true;
+            }
+            return false;
+            //LastChange = Change.Realtor;
+            //Status = RequestStatus.Negotiation;
+        }
+        public bool NegotiationToPending(double _price, DateTime _start, DateTime _finish, List<Service> _services, List
+            <RentRegistry> _rents)
+        {
+            var rents = _rents.Where(x => !(Start >= x.Finish || x.Start >= Finish)).Count();
+            if (Start < Finish && rents == 0)
+            {
+                //if (Price != _price || _start != Start || _finish != Finish || Different(_services, Services.ToList()))
+                LastChange = Change.Client;
+                RentState = Estados.Pending;
+                return true;
+            }
+            return false;
+        }
+        public bool Pending2ToNegotiation2(double _price, DateTime _start, DateTime _finish, List<Service> _services, List
+            <RentRegistry> _rents)
+        {
+            var rents = _rents.Where(x => !(Start >= x.Finish || x.Start >= Finish)).Count();
+            if (Start < Finish && rents == 0)
+            {
+                if (RentPrice != _price || _start != Start || _finish != Finish || Different(_services.Select(x => x.ServiceID).ToList(), Services.Select(x => x.ServiceID).ToList()))
+                    LastChange = Change.Realtor;
+                RentState = Estados.Negotiation2;
+                return true;
+            }
+            return false;
+        }
+        public bool Negotiation2ToPending2(double _price, DateTime _start, DateTime _finish, List<Service> _services, List
+            <RentRegistry> _rents)
+        {
+            var rents = _rents.Where(x => !(Start >= x.Finish || x.Start >= Finish)).Count();
+            if (Start < Finish && rents == 0)
+            {
+                //if (Price != _price || _start != Start || _finish != Finish || Different(_services, Services.ToList()))
+                LastChange = Change.Owner;
+                RentState = Estados.Pending2;
+                return true;
+            }
+            return false;
+        }
+        public void Pass(User _user)
+        {
+            if (_user.Privileges.Name == "Client")
+            {
+                if (RentState == RentRequest.Estados.Negotiation)
+                {
+                    LastChange = Change.Client;
+                    RentState = RentRequest.Estados.Pending;
+                }
+                else if (RentState == RentRequest.Estados.Negotiation2)
+                {
+                    LastChange = Change.Owner;
+                    RentState = RentRequest.Estados.Pending2;
+                }
+            }
+            else
+            {
+                if (RentState == RentRequest.Estados.Pending)
+                {
+                    RentState = RentRequest.Estados.Negotiation;
+                }
+                else if (RentState == RentRequest.Estados.Pending2)
+                {
+                    RentState = RentRequest.Estados.Negotiation2;
+                }
+            }
+        }
+        public void ToAccept(User user)
+        {
+            if (user.Privileges.Name != "Realtor" && ((LastChange == Change.Client && user.Name == Publishing.House.Owner.Name) || (LastChange == Change.Owner && user.Name == Client.Name)))
+            {
+                RentState = Estados.Accept;
+            }
+        }
+        public void ToReject()
+        {
+            RentState = Estados.Reject;
+        }
+
+        public bool Different(List<int> l1, List<int> l2)
+        {
+            if (l1.Count() != l2.Count()) return true;
+            foreach (var serv in l1)
+            {
+                if (!l2.Contains(serv)) return true;
+            }
+            return false;
+        }
+
+        #endregion
+
+    }
+
+    public class Service
+    {
+        public int ServiceID { get; set; }
+        [Display(Name = "Nombre")]
+        public string Name { get; set; }
+        [Display(Name = "Precio")]
+        public float Price { get; set; }
+        public virtual ICollection<RentRequest> RentRequests { get; set; }
+        public virtual ICollection<RentRegistry> RentRegistries { get; set; }
+    }
+}

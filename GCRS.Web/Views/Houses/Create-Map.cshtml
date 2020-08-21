@@ -1,0 +1,17 @@
+﻿@model GCRS.Base.House
+@{
+    ViewBag.Title = "Create'Map";
+}
+
+<h4>Localización</h4>
+
+<div class="form-group">
+    @*@Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "control-label col-md-2" })*@
+    <div class="col-md-10">
+        <input class="form-control text-box single-line" id="Coordinates" name="Coordinates" type="text" value="" readonly="readonly" hidden="hidden">
+    </div>
+</div>
+
+<div class="card" style="width:800px; height:400px">
+    <div id="map-viewer" class="card-img-top" style="width:800px; height:400px"></div>
+</div>

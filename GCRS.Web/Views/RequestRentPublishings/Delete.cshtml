@@ -1,0 +1,64 @@
+﻿@model GCRS.Base.RequestRentPublishing
+
+@{
+    ViewBag.Title = "Eliminar";
+}
+
+<h2>Eliminar</h2>
+
+<h3>Está seguro de eliminar este objeto?</h3>
+<div>
+    <h4>Solicitud de Renta</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CommissionPercent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CommissionPercent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastChange)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastChange)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RequestStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RequestStatus)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-default" /> |
+            @Html.ActionLink("Regresar", "Index")
+        </div>
+    }
+</div>

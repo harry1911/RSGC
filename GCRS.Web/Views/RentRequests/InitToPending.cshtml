@@ -1,0 +1,84 @@
+﻿@model GCRS.Base.RentRequest
+
+@{
+    ViewBag.Title = "Crear Solicitud de Renta";
+}
+
+<h2>Crear Solicitud de Renta</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @if (ViewBag.Fechas)
+        {
+            <div class="alert alert-danger">
+                Las fechas presentan conflicto.
+            </div>
+        }
+        <div class="form-group">
+            @Html.LabelFor(model => model.Start, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*<input class="form-control text-box single-line" data-val="true" data-val-required="El campo Inicio es requerido." id="Start" name="Start" value="" type="date">*@
+                @Html.EditorFor(model => model.Start, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Start, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Finish, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*<input class="form-control text-box single-line" data-val="true" data-val-required="El campo Finalizacion es requerido." id="Finish" name="Finish" value="" type="date">*@
+                @Html.EditorFor(model => model.Finish, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Finish, "", new { @class = "text-danger" })
+</div>
+        </div>
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.RentPrice, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            @Html.Label("Precio por noche(" + (int)ViewBag.Price + ")", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*<input type="number" class="form-control" id="Price" name="PriceHect" value="@((double)ViewBag.Price).ToString()">*@
+                @*<input class="form-control text-box single-line" data-val="true" data-val-required="El campo Precio es requerido." id="Finish" name="Finish" value="@((int)ViewBag.Price).ToString()" type="number">*@
+                @Html.EditorFor(model => model.RentPrice, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RentPrice, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.RentState, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EnumDropDownListFor(model => model.RentState, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.RentState, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LastChange, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EnumDropDownListFor(model => model.LastChange, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.LastChange, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            @Html.Label("Services", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("ServiceID", (MultiSelectList)ViewBag.Services, new { multiple = "multiple" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Crear" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@*<div>
+    @Html.ActionLink("Regresar", "Index")
+</div>*@

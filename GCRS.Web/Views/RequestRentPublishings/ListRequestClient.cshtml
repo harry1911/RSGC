@@ -1,0 +1,68 @@
+﻿@model IEnumerable<GCRS.Base.RequestRentPublishing>
+
+@{
+    ViewBag.Title = "Mis Publicaciones";
+}
+
+<h2>Mis Publicaciones</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CommissionPercent)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RequestStatus)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CommissionPercent)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RequestStatus)
+                </td>
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { id = item.RequestRentPublishingID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.RequestRentPublishingID })*@
+                    <div class="form-group">
+                        <div class="btn-group btn-group-sm" data-toggle="buttons">
+                            @if (item.RequestStatus != GCRS.Base.RequestStatus.Reject && item.RequestStatus != GCRS.Base.RequestStatus.Accept)
+                            {
+                                if (item.LastChange == GCRS.Base.Change.Realtor)
+                                {
+                                    <input type="submit" value="Aceptar" class="btn btn-success" onclick="location.href='@Url.Action("AcceptRequest", "RequestRentPublishings", new { id = item.RequestPublishingID })'" />
+                                    <input type="submit" value="Editar" class="btn btn-success" onclick="location.href='@Url.Action("FlowRequest", "RequestRentPublishings", new { id = item.RequestPublishingID })'" />
+                                }
+                                <input type="submit" value="Denegar" class="btn btn-danger" onclick="location.href='@Url.Action("RejectRequest", "RequestRentPublishings", new { id = item.RequestPublishingID })'" />
+                                <input type="submit" value="Detalles" class="btn btn-success" onclick="location.href='@Url.Action("Details", "RequestRentPublishings", new { id = item.RequestPublishingID })'" />
+                            }
+                            else
+                            {
+                                <input type="submit" value="Detalles" class="btn btn-primary" onclick="location.href='@Url.Action("Details", "RequestRentPublishings", new { id = item.RequestPublishingID })'" />
+                            }
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    }
+
+</table>

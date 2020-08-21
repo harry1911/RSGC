@@ -1,0 +1,169 @@
+﻿@model GCRS.Base.Room
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Editar</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Habitación</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.RoomID)
+
+        <div class="form-group my-form-container4">
+            @Html.LabelFor(model => model.RoomTypeID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("RoomTypeID", String.Empty)
+                @*<label style="font-size:25px">*</label>*@
+                @Html.ValidationMessageFor(model => model.RoomTypeID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group my-form-container4">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group my-form-container4">
+            @Html.LabelFor(model => model.SquareMts, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SquareMts, new { htmlAttributes = new { @class = "form-control", @style = "display: inline-block" } })
+                @*<label style="font-size:25px">*</label>*@
+                @Html.ValidationMessageFor(model => model.SquareMts, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @{
+            ViewDataDictionary viewData = new ViewDataDictionary();
+            viewData.Add(new KeyValuePair<string, object>("details", false));
+        }
+
+        <div class="form-group my-form-container4">
+            @Html.LabelFor(model => model.Features, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10 one-to-many-table-container">
+                @Html.Partial("RoomFeaturesTablePartial", Model.Features.ToList(), viewData)
+                <form action="" method="get" class="form-inline">
+                    <div class="form-group-inline">
+                        @Html.DropDownList("RoomFeatureID", String.Empty)
+                    </div>
+                    <div class="form-group-inline" style="padding-top:5px">
+                        <input class="btn btn-primary" type="button" onclick="add()" value="Añadir">
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Salvar" class="btn btn-default" />
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="button" value="Salvar" class="btn btn-default" onclick="upload()" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Regresar", "Index")
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<script>
+    document.getElementById("RoomTypeID").style.display = "inline-block"
+
+    $(".event_list").each(function (index, element) {
+        element.addEventListener('click', remove);
+    });
+
+    function add() {
+        var table_id = "features_table";
+        var value_id = "RoomFeatureID";
+        var tbody = document.getElementsByTagName("tbody")[0];
+        var table = document.getElementById(table_id);
+        var new_row = document.createElement("tr");
+        var cBox = document.getElementById(value_id);
+        new_row.id = cBox.value;
+        console.debug(table.rows.length);
+        for (var i = 0; i < table.rows.length; i++)
+            if (new_row.id == table.rows[i].id)
+                return;
+        var phone = document.createTextNode(cBox.options[cBox.selectedIndex].text);
+        var phone_node = document.createElement("td");
+        var btn_rem_node = document.createElement("td");
+        var btn_rem=document.createElement("a");
+        btn_rem.href = "javascript:void(0)";
+        btn_rem.addEventListener("click", remove);
+        btn_rem.innerHTML = "Remover";
+        btn_rem_node.appendChild(btn_rem);
+        phone_node.appendChild(phone);
+        new_row.appendChild(phone_node);
+        new_row.appendChild(btn_rem_node);
+        tbody.appendChild(new_row);
+    }
+    function remove() {
+        var td = this.parentNode;
+        console.debug(td);
+        var tr = td.parentNode;
+        var tbody = tr.parentNode;
+        tbody.removeChild(tr);
+    }
+
+
+    function upload() {
+        var Room = new Object();
+        Room.RoomID=@Model.RoomID;
+        Room.SquareMts= $("#SquareMts").val();
+        Room.Description= $("#Description").val();
+        Room.RoomTypeID = $("#RoomTypeID").val();
+        var features = new Array();
+        var features_table = document.getElementById("features_table");
+        for (var i = 1; i < features_table.rows.length; i++) {
+            var feature = new Object();
+            feature.RoomFeatureID = features_table.rows[i].id;
+            feature.Name="";
+            feature.Description="";
+            features.push(feature);
+        }
+        Room.Features=features;
+        @{string url = "../Edit/" + Model.RoomID;}
+        $.ajax({
+            url: "@url",
+            type: "POST",
+            dataType: "json",
+            data: Room,
+            success: function (data, textStatus, xhr) {
+                if (data.validations)
+                {
+                    validate(data.validations);
+                }
+                console.debug("ja ja");
+                console.debug(data);
+                if (data.redirects) {
+                    window.location.href = "/Rooms";
+                }
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("tu madre");
+                console.log(errorThrown);
+            }
+        });
+        return Room;
+    }
+</script>

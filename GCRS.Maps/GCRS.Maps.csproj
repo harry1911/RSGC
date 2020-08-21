@@ -1,0 +1,872 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5295646D-72B0-4CE1-BF30-4AED48E25CAF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GCRS.Maps</RootNamespace>
+    <AssemblyName>GCRS.Maps</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BruTile, Version=0.7.4.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BruTile.0.7.4.4\lib\net40\BruTile.dll</HintPath>
+    </Reference>
+    <Reference Include="BruTile.Desktop, Version=0.7.4.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BruTile.0.7.4.4\lib\net40\BruTile.Desktop.dll</HintPath>
+    </Reference>
+    <Reference Include="BruTile.MbTiles, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BruTile.0.7.4.4\lib\net40\BruTile.MbTiles.dll</HintPath>
+    </Reference>
+    <Reference Include="BruTile.Serialization, Version=0.7.4.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BruTile.0.7.4.4\lib\net40\BruTile.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging, Version=2.0.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.2.0.0\lib\2.0\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="GeoAPI, Version=1.7.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GeoAPI.1.7.2\lib\net403-client\GeoAPI.dll</HintPath>
+    </Reference>
+    <Reference Include="Itinero, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Itinero.1.0.0\lib\net45\Itinero.dll</HintPath>
+    </Reference>
+    <Reference Include="Itinero.IO.Osm, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Itinero.IO.Osm.1.0.0\lib\net45\Itinero.IO.Osm.dll</HintPath>
+    </Reference>
+    <Reference Include="NetTopologySuite, Version=1.13.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NetTopologySuite.1.13.2\lib\net403-client\NetTopologySuite.dll</HintPath>
+    </Reference>
+    <Reference Include="NetTopologySuite.IO.GeoTools, Version=1.13.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NetTopologySuite.IO.1.13.2\lib\net403-client\NetTopologySuite.IO.GeoTools.dll</HintPath>
+    </Reference>
+    <Reference Include="NetTopologySuite.IO.MsSqlSpatial, Version=1.13.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NetTopologySuite.IO.1.13.2\lib\net403-client\NetTopologySuite.IO.MsSqlSpatial.dll</HintPath>
+    </Reference>
+    <Reference Include="NetTopologySuite.IO.PostGis, Version=1.13.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NetTopologySuite.IO.1.13.2\lib\net403-client\NetTopologySuite.IO.PostGis.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="OsmSharp, Version=5.0.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\OsmSharp.5.0.7\lib\net45\OsmSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="PowerCollections, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NetTopologySuite.1.13.2\lib\net403-client\PowerCollections.dll</HintPath>
+    </Reference>
+    <Reference Include="ProjNet, Version=1.3.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ProjNET4GeoAPI.1.3.0.3\lib\net403-client\ProjNet.dll</HintPath>
+    </Reference>
+    <Reference Include="protobuf-net, Version=2.0.0.668, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
+      <HintPath>..\packages\protobuf-net.2.0.0.668\lib\net40\protobuf-net.dll</HintPath>
+    </Reference>
+    <Reference Include="Reminiscence, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Reminiscence.1.0.5\lib\net45\Reminiscence.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpMap, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpMap.1.1.0\lib\net40-client\SharpMap.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpMap.Web, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpMap.Web.1.1.0\lib\net40\SharpMap.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite, Version=1.0.86.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.MSIL.1.0.86.0\lib\net45\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq, Version=1.0.86.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.MSIL.1.0.86.0\lib\net45\System.Data.SQLite.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Coordinates.cs" />
+    <Compile Include="Core\CubaMapHandler.cs" />
+    <Compile Include="Core\RouteService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\500px.png" />
+    <EmbeddedResource Include="Images\adjust.png" />
+    <EmbeddedResource Include="Images\adn.png" />
+    <EmbeddedResource Include="Images\airport.png" />
+    <EmbeddedResource Include="Images\align-center.png" />
+    <EmbeddedResource Include="Images\align-justify.png" />
+    <EmbeddedResource Include="Images\align-left.png" />
+    <EmbeddedResource Include="Images\align-right.png" />
+    <EmbeddedResource Include="Images\amazon.png" />
+    <EmbeddedResource Include="Images\ambulance.png" />
+    <EmbeddedResource Include="Images\american-sign-language-interpreting.png" />
+    <EmbeddedResource Include="Images\anchor.png" />
+    <EmbeddedResource Include="Images\android.png" />
+    <EmbeddedResource Include="Images\angellist.png" />
+    <EmbeddedResource Include="Images\angle-double-down.png" />
+    <EmbeddedResource Include="Images\angle-double-left.png" />
+    <EmbeddedResource Include="Images\angle-double-right.png" />
+    <EmbeddedResource Include="Images\angle-double-up.png" />
+    <EmbeddedResource Include="Images\angle-down.png" />
+    <EmbeddedResource Include="Images\angle-left.png" />
+    <EmbeddedResource Include="Images\angle-right.png" />
+    <EmbeddedResource Include="Images\angle-up.png" />
+    <EmbeddedResource Include="Images\apple.png" />
+    <EmbeddedResource Include="Images\archive.png" />
+    <EmbeddedResource Include="Images\area-chart.png" />
+    <EmbeddedResource Include="Images\arrow-circle-down.png" />
+    <EmbeddedResource Include="Images\arrow-circle-left.png" />
+    <EmbeddedResource Include="Images\arrow-circle-o-down.png" />
+    <EmbeddedResource Include="Images\arrow-circle-o-left.png" />
+    <EmbeddedResource Include="Images\arrow-circle-o-right.png" />
+    <EmbeddedResource Include="Images\arrow-circle-o-up.png" />
+    <EmbeddedResource Include="Images\arrow-circle-right.png" />
+    <EmbeddedResource Include="Images\arrow-circle-up.png" />
+    <EmbeddedResource Include="Images\arrow-down.png" />
+    <EmbeddedResource Include="Images\arrow-left.png" />
+    <EmbeddedResource Include="Images\arrow-right.png" />
+    <EmbeddedResource Include="Images\arrow-up.png" />
+    <EmbeddedResource Include="Images\arrows-alt.png" />
+    <EmbeddedResource Include="Images\arrows-h.png" />
+    <EmbeddedResource Include="Images\arrows-v.png" />
+    <EmbeddedResource Include="Images\arrows.png" />
+    <EmbeddedResource Include="Images\asl-interpreting.png" />
+    <EmbeddedResource Include="Images\assistive-listening-systems.png" />
+    <EmbeddedResource Include="Images\asterisk.png" />
+    <EmbeddedResource Include="Images\at.png" />
+    <EmbeddedResource Include="Images\audio-description.png" />
+    <EmbeddedResource Include="Images\automobile.png" />
+    <EmbeddedResource Include="Images\backward.png" />
+    <EmbeddedResource Include="Images\balance-scale.png" />
+    <EmbeddedResource Include="Images\ban.png" />
+    <EmbeddedResource Include="Images\bank.png" />
+    <EmbeddedResource Include="Images\bar-chart-o.png" />
+    <EmbeddedResource Include="Images\bar-chart.png" />
+    <EmbeddedResource Include="Images\barcode.png" />
+    <EmbeddedResource Include="Images\bars.png" />
+    <EmbeddedResource Include="Images\battery-0.png" />
+    <EmbeddedResource Include="Images\battery-1.png" />
+    <EmbeddedResource Include="Images\battery-2.png" />
+    <EmbeddedResource Include="Images\battery-3.png" />
+    <EmbeddedResource Include="Images\battery-4.png" />
+    <EmbeddedResource Include="Images\battery-empty.png" />
+    <EmbeddedResource Include="Images\battery-full.png" />
+    <EmbeddedResource Include="Images\battery-half.png" />
+    <EmbeddedResource Include="Images\battery-quarter.png" />
+    <EmbeddedResource Include="Images\battery-three-quarters.png" />
+    <EmbeddedResource Include="Images\bed.png" />
+    <EmbeddedResource Include="Images\beer.png" />
+    <EmbeddedResource Include="Images\behance-square.png" />
+    <EmbeddedResource Include="Images\behance.png" />
+    <EmbeddedResource Include="Images\bell-o.png" />
+    <EmbeddedResource Include="Images\bell-slash-o.png" />
+    <EmbeddedResource Include="Images\bell-slash.png" />
+    <EmbeddedResource Include="Images\bell.png" />
+    <EmbeddedResource Include="Images\bicycle.png" />
+    <EmbeddedResource Include="Images\binoculars.png" />
+    <EmbeddedResource Include="Images\birthday-cake.png" />
+    <EmbeddedResource Include="Images\bitbucket-square.png" />
+    <EmbeddedResource Include="Images\bitbucket.png" />
+    <EmbeddedResource Include="Images\bitcoin.png" />
+    <EmbeddedResource Include="Images\black-tie.png" />
+    <EmbeddedResource Include="Images\blind.png" />
+    <EmbeddedResource Include="Images\bluetooth-b.png" />
+    <EmbeddedResource Include="Images\bluetooth.png" />
+    <EmbeddedResource Include="Images\bold.png" />
+    <EmbeddedResource Include="Images\bolt.png" />
+    <EmbeddedResource Include="Images\bomb.png" />
+    <EmbeddedResource Include="Images\book.png" />
+    <EmbeddedResource Include="Images\bookmark-o.png" />
+    <EmbeddedResource Include="Images\bookmark.png" />
+    <EmbeddedResource Include="Images\braille.png" />
+    <EmbeddedResource Include="Images\briefcase.png" />
+    <EmbeddedResource Include="Images\btc.png" />
+    <EmbeddedResource Include="Images\bug.png" />
+    <EmbeddedResource Include="Images\building-o.png" />
+    <EmbeddedResource Include="Images\building.png" />
+    <EmbeddedResource Include="Images\bullhorn.png" />
+    <EmbeddedResource Include="Images\bullseye.png" />
+    <EmbeddedResource Include="Images\bus.png" />
+    <EmbeddedResource Include="Images\buysellads.png" />
+    <EmbeddedResource Include="Images\cab.png" />
+    <EmbeddedResource Include="Images\cafe.png" />
+    <EmbeddedResource Include="Images\calculator.png" />
+    <EmbeddedResource Include="Images\calendar-check-o.png" />
+    <EmbeddedResource Include="Images\calendar-minus-o.png" />
+    <EmbeddedResource Include="Images\calendar-o.png" />
+    <EmbeddedResource Include="Images\calendar-plus-o.png" />
+    <EmbeddedResource Include="Images\calendar-times-o.png" />
+    <EmbeddedResource Include="Images\calendar.png" />
+    <EmbeddedResource Include="Images\camera-retro.png" />
+    <EmbeddedResource Include="Images\camera.png" />
+    <EmbeddedResource Include="Images\car.png" />
+    <EmbeddedResource Include="Images\caret-down.png" />
+    <EmbeddedResource Include="Images\caret-left.png" />
+    <EmbeddedResource Include="Images\caret-right.png" />
+    <EmbeddedResource Include="Images\caret-square-o-down.png" />
+    <EmbeddedResource Include="Images\caret-square-o-left.png" />
+    <EmbeddedResource Include="Images\caret-square-o-right.png" />
+    <EmbeddedResource Include="Images\caret-square-o-up.png" />
+    <EmbeddedResource Include="Images\caret-up.png" />
+    <EmbeddedResource Include="Images\cart-arrow-down.png" />
+    <EmbeddedResource Include="Images\cart-plus.png" />
+    <EmbeddedResource Include="Images\cc-amex.png" />
+    <EmbeddedResource Include="Images\cc-diners-club.png" />
+    <EmbeddedResource Include="Images\cc-discover.png" />
+    <EmbeddedResource Include="Images\cc-jcb.png" />
+    <EmbeddedResource Include="Images\cc-mastercard.png" />
+    <EmbeddedResource Include="Images\cc-paypal.png" />
+    <EmbeddedResource Include="Images\cc-stripe.png" />
+    <EmbeddedResource Include="Images\cc-visa.png" />
+    <EmbeddedResource Include="Images\cc.png" />
+    <EmbeddedResource Include="Images\certificate.png" />
+    <EmbeddedResource Include="Images\chain-broken.png" />
+    <EmbeddedResource Include="Images\chain.png" />
+    <EmbeddedResource Include="Images\check-circle-o.png" />
+    <EmbeddedResource Include="Images\check-circle.png" />
+    <EmbeddedResource Include="Images\check-square-o.png" />
+    <EmbeddedResource Include="Images\check-square.png" />
+    <EmbeddedResource Include="Images\check.png" />
+    <EmbeddedResource Include="Images\chevron-circle-down.png" />
+    <EmbeddedResource Include="Images\chevron-circle-left.png" />
+    <EmbeddedResource Include="Images\chevron-circle-right.png" />
+    <EmbeddedResource Include="Images\chevron-circle-up.png" />
+    <EmbeddedResource Include="Images\chevron-down.png" />
+    <EmbeddedResource Include="Images\chevron-left.png" />
+    <EmbeddedResource Include="Images\chevron-right.png" />
+    <EmbeddedResource Include="Images\chevron-up.png" />
+    <EmbeddedResource Include="Images\child.png" />
+    <EmbeddedResource Include="Images\chrome.png" />
+    <EmbeddedResource Include="Images\cinema.png" />
+    <EmbeddedResource Include="Images\circle-o-notch.png" />
+    <EmbeddedResource Include="Images\circle-o.png" />
+    <EmbeddedResource Include="Images\circle-thin.png" />
+    <EmbeddedResource Include="Images\circle.png" />
+    <EmbeddedResource Include="Images\circleMarker.png" />
+    <EmbeddedResource Include="Images\clipboard.png" />
+    <EmbeddedResource Include="Images\clock-o.png" />
+    <EmbeddedResource Include="Images\clone.png" />
+    <EmbeddedResource Include="Images\close.png" />
+    <EmbeddedResource Include="Images\cloud-download.png" />
+    <EmbeddedResource Include="Images\cloud-upload.png" />
+    <EmbeddedResource Include="Images\cloud.png" />
+    <EmbeddedResource Include="Images\cny.png" />
+    <EmbeddedResource Include="Images\code-fork.png" />
+    <EmbeddedResource Include="Images\code.png" />
+    <EmbeddedResource Include="Images\codepen.png" />
+    <EmbeddedResource Include="Images\codiepie.png" />
+    <EmbeddedResource Include="Images\coffee.png" />
+    <EmbeddedResource Include="Images\cog.png" />
+    <EmbeddedResource Include="Images\cogs.png" />
+    <EmbeddedResource Include="Images\college.png" />
+    <EmbeddedResource Include="Images\columns.png" />
+    <EmbeddedResource Include="Images\comment-o.png" />
+    <EmbeddedResource Include="Images\comment.png" />
+    <EmbeddedResource Include="Images\commenting-o.png" />
+    <EmbeddedResource Include="Images\commenting.png" />
+    <EmbeddedResource Include="Images\comments-o.png" />
+    <EmbeddedResource Include="Images\comments.png" />
+    <EmbeddedResource Include="Images\compass.png" />
+    <EmbeddedResource Include="Images\compress.png" />
+    <EmbeddedResource Include="Images\connectdevelop.png" />
+    <EmbeddedResource Include="Images\contao.png" />
+    <EmbeddedResource Include="Images\copy.png" />
+    <EmbeddedResource Include="Images\copyright.png" />
+    <EmbeddedResource Include="Images\creative-commons.png" />
+    <EmbeddedResource Include="Images\credit-card-alt.png" />
+    <EmbeddedResource Include="Images\credit-card.png" />
+    <EmbeddedResource Include="Images\crop.png" />
+    <EmbeddedResource Include="Images\crosshair.png" />
+    <EmbeddedResource Include="Images\crosshairs.png" />
+    <EmbeddedResource Include="Images\css3.png" />
+    <EmbeddedResource Include="Images\cube.png" />
+    <EmbeddedResource Include="Images\cubes.png" />
+    <EmbeddedResource Include="Images\cut.png" />
+    <EmbeddedResource Include="Images\cutlery.png" />
+    <EmbeddedResource Include="Images\dashboard.png" />
+    <EmbeddedResource Include="Images\dashcube.png" />
+    <EmbeddedResource Include="Images\database.png" />
+    <EmbeddedResource Include="Images\deaf.png" />
+    <EmbeddedResource Include="Images\deafness.png" />
+    <EmbeddedResource Include="Images\dedent.png" />
+    <EmbeddedResource Include="Images\delicious.png" />
+    <EmbeddedResource Include="Images\desktop.png" />
+    <EmbeddedResource Include="Images\deviantart.png" />
+    <EmbeddedResource Include="Images\diamond.png" />
+    <EmbeddedResource Include="Images\digg.png" />
+    <EmbeddedResource Include="Images\dollar.png" />
+    <EmbeddedResource Include="Images\dot-circle-o.png" />
+    <EmbeddedResource Include="Images\download.png" />
+    <EmbeddedResource Include="Images\dribbble.png" />
+    <EmbeddedResource Include="Images\dropbox.png" />
+    <EmbeddedResource Include="Images\drupal.png" />
+    <EmbeddedResource Include="Images\edge.png" />
+    <EmbeddedResource Include="Images\edit.png" />
+    <EmbeddedResource Include="Images\eject.png" />
+    <EmbeddedResource Include="Images\ellipsis-h.png" />
+    <EmbeddedResource Include="Images\ellipsis-v.png" />
+    <EmbeddedResource Include="Images\empire.png" />
+    <EmbeddedResource Include="Images\envelope-o.png" />
+    <EmbeddedResource Include="Images\envelope-square.png" />
+    <EmbeddedResource Include="Images\envelope.png" />
+    <EmbeddedResource Include="Images\envira.png" />
+    <EmbeddedResource Include="Images\eraser.png" />
+    <EmbeddedResource Include="Images\eur.png" />
+    <EmbeddedResource Include="Images\euro.png" />
+    <EmbeddedResource Include="Images\exchange.png" />
+    <EmbeddedResource Include="Images\exclamation-circle.png" />
+    <EmbeddedResource Include="Images\exclamation-triangle.png" />
+    <EmbeddedResource Include="Images\exclamation.png" />
+    <EmbeddedResource Include="Images\expand.png" />
+    <EmbeddedResource Include="Images\expeditedssl.png" />
+    <EmbeddedResource Include="Images\external-link-square.png" />
+    <EmbeddedResource Include="Images\external-link.png" />
+    <EmbeddedResource Include="Images\eye-slash.png" />
+    <EmbeddedResource Include="Images\eye.png" />
+    <EmbeddedResource Include="Images\eyedropper.png" />
+    <EmbeddedResource Include="Images\facebook-f.png" />
+    <EmbeddedResource Include="Images\facebook-official.png" />
+    <EmbeddedResource Include="Images\facebook-square.png" />
+    <EmbeddedResource Include="Images\facebook.png" />
+    <EmbeddedResource Include="Images\fast-backward.png" />
+    <EmbeddedResource Include="Images\fast-forward.png" />
+    <EmbeddedResource Include="Images\fax.png" />
+    <EmbeddedResource Include="Images\feed.png" />
+    <EmbeddedResource Include="Images\female.png" />
+    <EmbeddedResource Include="Images\fighter-jet.png" />
+    <EmbeddedResource Include="Images\file-archive-o.png" />
+    <EmbeddedResource Include="Images\file-audio-o.png" />
+    <EmbeddedResource Include="Images\file-code-o.png" />
+    <EmbeddedResource Include="Images\file-excel-o.png" />
+    <EmbeddedResource Include="Images\file-image-o.png" />
+    <EmbeddedResource Include="Images\file-movie-o.png" />
+    <EmbeddedResource Include="Images\file-o.png" />
+    <EmbeddedResource Include="Images\file-pdf-o.png" />
+    <EmbeddedResource Include="Images\file-photo-o.png" />
+    <EmbeddedResource Include="Images\file-picture-o.png" />
+    <EmbeddedResource Include="Images\file-powerpoint-o.png" />
+    <EmbeddedResource Include="Images\file-sound-o.png" />
+    <EmbeddedResource Include="Images\file-text-o.png" />
+    <EmbeddedResource Include="Images\file-text.png" />
+    <EmbeddedResource Include="Images\file-video-o.png" />
+    <EmbeddedResource Include="Images\file-word-o.png" />
+    <EmbeddedResource Include="Images\file-zip-o.png" />
+    <EmbeddedResource Include="Images\file.png" />
+    <EmbeddedResource Include="Images\files-o.png" />
+    <EmbeddedResource Include="Images\film.png" />
+    <EmbeddedResource Include="Images\filter.png" />
+    <EmbeddedResource Include="Images\fire-extinguisher.png" />
+    <EmbeddedResource Include="Images\fire.png" />
+    <EmbeddedResource Include="Images\firefox.png" />
+    <EmbeddedResource Include="Images\flag-checkered.png" />
+    <EmbeddedResource Include="Images\flag-o.png" />
+    <EmbeddedResource Include="Images\flag.png" />
+    <EmbeddedResource Include="Images\flash.png" />
+    <EmbeddedResource Include="Images\flask.png" />
+    <EmbeddedResource Include="Images\flickr.png" />
+    <EmbeddedResource Include="Images\floppy-o.png" />
+    <EmbeddedResource Include="Images\folder-o.png" />
+    <EmbeddedResource Include="Images\folder-open-o.png" />
+    <EmbeddedResource Include="Images\folder-open.png" />
+    <EmbeddedResource Include="Images\folder.png" />
+    <EmbeddedResource Include="Images\font.png" />
+    <EmbeddedResource Include="Images\fonticons.png" />
+    <EmbeddedResource Include="Images\food.png" />
+    <EmbeddedResource Include="Images\fort-awesome.png" />
+    <EmbeddedResource Include="Images\forumbee.png" />
+    <EmbeddedResource Include="Images\forward.png" />
+    <EmbeddedResource Include="Images\foursquare.png" />
+    <EmbeddedResource Include="Images\frown-o.png" />
+    <EmbeddedResource Include="Images\fuel.png" />
+    <EmbeddedResource Include="Images\futbol-o.png" />
+    <EmbeddedResource Include="Images\gamepad.png" />
+    <EmbeddedResource Include="Images\gavel.png" />
+    <EmbeddedResource Include="Images\gbp.png" />
+    <EmbeddedResource Include="Images\ge.png" />
+    <EmbeddedResource Include="Images\gear.png" />
+    <EmbeddedResource Include="Images\gears.png" />
+    <EmbeddedResource Include="Images\genderless.png" />
+    <EmbeddedResource Include="Images\get-pocket.png" />
+    <EmbeddedResource Include="Images\gg-circle.png" />
+    <EmbeddedResource Include="Images\gg.png" />
+    <EmbeddedResource Include="Images\gift.png" />
+    <EmbeddedResource Include="Images\git-square.png" />
+    <EmbeddedResource Include="Images\git.png" />
+    <EmbeddedResource Include="Images\github-alt.png" />
+    <EmbeddedResource Include="Images\github-square.png" />
+    <EmbeddedResource Include="Images\github.png" />
+    <EmbeddedResource Include="Images\gitlab.png" />
+    <EmbeddedResource Include="Images\gittip.png" />
+    <EmbeddedResource Include="Images\glass.png" />
+    <EmbeddedResource Include="Images\glide-g.png" />
+    <EmbeddedResource Include="Images\glide.png" />
+    <EmbeddedResource Include="Images\globe.png" />
+    <EmbeddedResource Include="Images\google-plus-square.png" />
+    <EmbeddedResource Include="Images\google-plus.png" />
+    <EmbeddedResource Include="Images\google-wallet.png" />
+    <EmbeddedResource Include="Images\google.png" />
+    <EmbeddedResource Include="Images\graduation-cap.png" />
+    <EmbeddedResource Include="Images\gratipay.png" />
+    <EmbeddedResource Include="Images\grocery.png" />
+    <EmbeddedResource Include="Images\group.png" />
+    <EmbeddedResource Include="Images\h-square.png" />
+    <EmbeddedResource Include="Images\hacker-news.png" />
+    <EmbeddedResource Include="Images\hand-grab-o.png" />
+    <EmbeddedResource Include="Images\hand-lizard-o.png" />
+    <EmbeddedResource Include="Images\hand-o-down.png" />
+    <EmbeddedResource Include="Images\hand-o-left.png" />
+    <EmbeddedResource Include="Images\hand-o-right.png" />
+    <EmbeddedResource Include="Images\hand-o-up.png" />
+    <EmbeddedResource Include="Images\hand-paper-o.png" />
+    <EmbeddedResource Include="Images\hand-peace-o.png" />
+    <EmbeddedResource Include="Images\hand-pointer-o.png" />
+    <EmbeddedResource Include="Images\hand-rock-o.png" />
+    <EmbeddedResource Include="Images\hand-scissors-o.png" />
+    <EmbeddedResource Include="Images\hand-spock-o.png" />
+    <EmbeddedResource Include="Images\hand-stop-o.png" />
+    <EmbeddedResource Include="Images\hard-of-hearing.png" />
+    <EmbeddedResource Include="Images\hashtag.png" />
+    <EmbeddedResource Include="Images\hdd-o.png" />
+    <EmbeddedResource Include="Images\header.png" />
+    <EmbeddedResource Include="Images\headphones.png" />
+    <EmbeddedResource Include="Images\heart-o.png" />
+    <EmbeddedResource Include="Images\heart.png" />
+    <EmbeddedResource Include="Images\heartbeat.png" />
+    <EmbeddedResource Include="Images\history.png" />
+    <EmbeddedResource Include="Images\home.png" />
+    <EmbeddedResource Include="Images\hospital-o.png" />
+    <EmbeddedResource Include="Images\hospital.png" />
+    <EmbeddedResource Include="Images\hotel.png" />
+    <EmbeddedResource Include="Images\hourglass-1.png" />
+    <EmbeddedResource Include="Images\hourglass-2.png" />
+    <EmbeddedResource Include="Images\hourglass-3.png" />
+    <EmbeddedResource Include="Images\hourglass-end.png" />
+    <EmbeddedResource Include="Images\hourglass-half.png" />
+    <EmbeddedResource Include="Images\hourglass-o.png" />
+    <EmbeddedResource Include="Images\hourglass-start.png" />
+    <EmbeddedResource Include="Images\hourglass.png" />
+    <EmbeddedResource Include="Images\houzz.png" />
+    <EmbeddedResource Include="Images\html5.png" />
+    <EmbeddedResource Include="Images\i-cursor.png" />
+    <EmbeddedResource Include="Images\ils.png" />
+    <EmbeddedResource Include="Images\image.png" />
+    <EmbeddedResource Include="Images\inbox.png" />
+    <EmbeddedResource Include="Images\indent.png" />
+    <EmbeddedResource Include="Images\industry.png" />
+    <EmbeddedResource Include="Images\info-circle.png" />
+    <EmbeddedResource Include="Images\info.png" />
+    <EmbeddedResource Include="Images\inr.png" />
+    <EmbeddedResource Include="Images\instagram.png" />
+    <EmbeddedResource Include="Images\institution.png" />
+    <EmbeddedResource Include="Images\internet-explorer.png" />
+    <EmbeddedResource Include="Images\intersex.png" />
+    <EmbeddedResource Include="Images\ioxhost.png" />
+    <EmbeddedResource Include="Images\italic.png" />
+    <EmbeddedResource Include="Images\joomla.png" />
+    <EmbeddedResource Include="Images\jpy.png" />
+    <EmbeddedResource Include="Images\jsfiddle.png" />
+    <EmbeddedResource Include="Images\key.png" />
+    <EmbeddedResource Include="Images\keyboard-o.png" />
+    <EmbeddedResource Include="Images\krw.png" />
+    <EmbeddedResource Include="Images\language.png" />
+    <EmbeddedResource Include="Images\laptop.png" />
+    <EmbeddedResource Include="Images\lastfm-square.png" />
+    <EmbeddedResource Include="Images\lastfm.png" />
+    <EmbeddedResource Include="Images\leaf.png" />
+    <EmbeddedResource Include="Images\leanpub.png" />
+    <EmbeddedResource Include="Images\legal.png" />
+    <EmbeddedResource Include="Images\lemon-o.png" />
+    <EmbeddedResource Include="Images\level-down.png" />
+    <EmbeddedResource Include="Images\level-up.png" />
+    <EmbeddedResource Include="Images\life-bouy.png" />
+    <EmbeddedResource Include="Images\life-buoy.png" />
+    <EmbeddedResource Include="Images\life-ring.png" />
+    <EmbeddedResource Include="Images\life-saver.png" />
+    <EmbeddedResource Include="Images\lightbulb-o.png" />
+    <EmbeddedResource Include="Images\line-chart.png" />
+    <EmbeddedResource Include="Images\link.png" />
+    <EmbeddedResource Include="Images\linkedin-square.png" />
+    <EmbeddedResource Include="Images\linkedin.png" />
+    <EmbeddedResource Include="Images\linux.png" />
+    <EmbeddedResource Include="Images\list-alt.png" />
+    <EmbeddedResource Include="Images\list-ol.png" />
+    <EmbeddedResource Include="Images\list-ul.png" />
+    <EmbeddedResource Include="Images\list.png" />
+    <EmbeddedResource Include="Images\location-arrow.png" />
+    <EmbeddedResource Include="Images\lock.png" />
+    <EmbeddedResource Include="Images\lodging.png" />
+    <EmbeddedResource Include="Images\long-arrow-down.png" />
+    <EmbeddedResource Include="Images\long-arrow-left.png" />
+    <EmbeddedResource Include="Images\long-arrow-right.png" />
+    <EmbeddedResource Include="Images\long-arrow-up.png" />
+    <EmbeddedResource Include="Images\low-vision.png" />
+    <EmbeddedResource Include="Images\magic.png" />
+    <EmbeddedResource Include="Images\magnet.png" />
+    <EmbeddedResource Include="Images\mail-forward.png" />
+    <EmbeddedResource Include="Images\mail-reply-all.png" />
+    <EmbeddedResource Include="Images\mail-reply.png" />
+    <EmbeddedResource Include="Images\male.png" />
+    <EmbeddedResource Include="Images\map-marker.png" />
+    <EmbeddedResource Include="Images\map-o.png" />
+    <EmbeddedResource Include="Images\map-pin.png" />
+    <EmbeddedResource Include="Images\map-signs.png" />
+    <EmbeddedResource Include="Images\map.png" />
+    <EmbeddedResource Include="Images\marker-and-shadow.png" />
+    <EmbeddedResource Include="Images\marker-red-and-shadow.png" />
+    <EmbeddedResource Include="Images\marker.png" />
+    <EmbeddedResource Include="Images\mars-double.png" />
+    <EmbeddedResource Include="Images\mars-stroke-h.png" />
+    <EmbeddedResource Include="Images\mars-stroke-v.png" />
+    <EmbeddedResource Include="Images\mars-stroke.png" />
+    <EmbeddedResource Include="Images\mars.png" />
+    <EmbeddedResource Include="Images\maxcdn.png" />
+    <EmbeddedResource Include="Images\meanpath.png" />
+    <EmbeddedResource Include="Images\medium.png" />
+    <EmbeddedResource Include="Images\medkit.png" />
+    <EmbeddedResource Include="Images\meh-o.png" />
+    <EmbeddedResource Include="Images\mercury.png" />
+    <EmbeddedResource Include="Images\microphone-slash.png" />
+    <EmbeddedResource Include="Images\microphone.png" />
+    <EmbeddedResource Include="Images\minus-circle.png" />
+    <EmbeddedResource Include="Images\minus-square-o.png" />
+    <EmbeddedResource Include="Images\minus-square.png" />
+    <EmbeddedResource Include="Images\minus.png" />
+    <EmbeddedResource Include="Images\mixcloud.png" />
+    <EmbeddedResource Include="Images\mobile-phone.png" />
+    <EmbeddedResource Include="Images\mobile.png" />
+    <EmbeddedResource Include="Images\modx.png" />
+    <EmbeddedResource Include="Images\money.png" />
+    <EmbeddedResource Include="Images\monument.png" />
+    <EmbeddedResource Include="Images\moon-o.png" />
+    <EmbeddedResource Include="Images\mortar-board.png" />
+    <EmbeddedResource Include="Images\motorcycle.png" />
+    <EmbeddedResource Include="Images\mouse-pointer.png" />
+    <EmbeddedResource Include="Images\museum.png" />
+    <EmbeddedResource Include="Images\music.png" />
+    <EmbeddedResource Include="Images\navicon.png" />
+    <EmbeddedResource Include="Images\neuter.png" />
+    <EmbeddedResource Include="Images\newspaper-o.png" />
+    <EmbeddedResource Include="Images\object-group.png" />
+    <EmbeddedResource Include="Images\object-ungroup.png" />
+    <EmbeddedResource Include="Images\odnoklassniki-square.png" />
+    <EmbeddedResource Include="Images\odnoklassniki.png" />
+    <EmbeddedResource Include="Images\opencart.png" />
+    <EmbeddedResource Include="Images\openid.png" />
+    <EmbeddedResource Include="Images\opera.png" />
+    <EmbeddedResource Include="Images\optin-monster.png" />
+    <EmbeddedResource Include="Images\outdent.png" />
+    <EmbeddedResource Include="Images\pagelines.png" />
+    <EmbeddedResource Include="Images\paint-brush.png" />
+    <EmbeddedResource Include="Images\paper-plane-o.png" />
+    <EmbeddedResource Include="Images\paper-plane.png" />
+    <EmbeddedResource Include="Images\paperclip.png" />
+    <EmbeddedResource Include="Images\paragraph.png" />
+    <EmbeddedResource Include="Images\parking.png" />
+    <EmbeddedResource Include="Images\paste.png" />
+    <EmbeddedResource Include="Images\pause-circle-o.png" />
+    <EmbeddedResource Include="Images\pause-circle.png" />
+    <EmbeddedResource Include="Images\pause.png" />
+    <EmbeddedResource Include="Images\paw.png" />
+    <EmbeddedResource Include="Images\paypal.png" />
+    <EmbeddedResource Include="Images\pencil-square-o.png" />
+    <EmbeddedResource Include="Images\pencil-square.png" />
+    <EmbeddedResource Include="Images\pencil.png" />
+    <EmbeddedResource Include="Images\percent.png" />
+    <EmbeddedResource Include="Images\pharmacy.png" />
+    <EmbeddedResource Include="Images\phone-square.png" />
+    <EmbeddedResource Include="Images\phone.png" />
+    <EmbeddedResource Include="Images\photo.png" />
+    <EmbeddedResource Include="Images\picture-o.png" />
+    <EmbeddedResource Include="Images\pie-chart.png" />
+    <EmbeddedResource Include="Images\pied-piper-alt.png" />
+    <EmbeddedResource Include="Images\pied-piper.png" />
+    <EmbeddedResource Include="Images\pinterest-p.png" />
+    <EmbeddedResource Include="Images\pinterest-square.png" />
+    <EmbeddedResource Include="Images\pinterest.png" />
+    <EmbeddedResource Include="Images\pitch.png" />
+    <EmbeddedResource Include="Images\plane.png" />
+    <EmbeddedResource Include="Images\play-circle-o.png" />
+    <EmbeddedResource Include="Images\play-circle.png" />
+    <EmbeddedResource Include="Images\play.png" />
+    <EmbeddedResource Include="Images\plug.png" />
+    <EmbeddedResource Include="Images\plus-circle.png" />
+    <EmbeddedResource Include="Images\plus-square-o.png" />
+    <EmbeddedResource Include="Images\plus-square.png" />
+    <EmbeddedResource Include="Images\plus.png" />
+    <EmbeddedResource Include="Images\police.png" />
+    <EmbeddedResource Include="Images\postbox.png" />
+    <EmbeddedResource Include="Images\power-off.png" />
+    <EmbeddedResource Include="Images\print.png" />
+    <EmbeddedResource Include="Images\product-hunt.png" />
+    <EmbeddedResource Include="Images\puzzle-piece.png" />
+    <EmbeddedResource Include="Images\qq.png" />
+    <EmbeddedResource Include="Images\qrcode.png" />
+    <EmbeddedResource Include="Images\question-circle-o.png" />
+    <EmbeddedResource Include="Images\question-circle.png" />
+    <EmbeddedResource Include="Images\question.png" />
+    <EmbeddedResource Include="Images\quote-left.png" />
+    <EmbeddedResource Include="Images\quote-right.png" />
+    <EmbeddedResource Include="Images\ra.png" />
+    <EmbeddedResource Include="Images\random.png" />
+    <EmbeddedResource Include="Images\rebel.png" />
+    <EmbeddedResource Include="Images\recycle.png" />
+    <EmbeddedResource Include="Images\reddit-alien.png" />
+    <EmbeddedResource Include="Images\reddit-square.png" />
+    <EmbeddedResource Include="Images\reddit.png" />
+    <EmbeddedResource Include="Images\refresh.png" />
+    <EmbeddedResource Include="Images\registered.png" />
+    <EmbeddedResource Include="Images\remove.png" />
+    <EmbeddedResource Include="Images\renren.png" />
+    <EmbeddedResource Include="Images\reorder.png" />
+    <EmbeddedResource Include="Images\repeat.png" />
+    <EmbeddedResource Include="Images\reply-all.png" />
+    <EmbeddedResource Include="Images\reply.png" />
+    <EmbeddedResource Include="Images\restaurant.png" />
+    <EmbeddedResource Include="Images\retweet.png" />
+    <EmbeddedResource Include="Images\rmb.png" />
+    <EmbeddedResource Include="Images\road.png" />
+    <EmbeddedResource Include="Images\rocket.png" />
+    <EmbeddedResource Include="Images\rotate-left.png" />
+    <EmbeddedResource Include="Images\rotate-right.png" />
+    <EmbeddedResource Include="Images\rouble.png" />
+    <EmbeddedResource Include="Images\rss-square.png" />
+    <EmbeddedResource Include="Images\rss.png" />
+    <EmbeddedResource Include="Images\rub.png" />
+    <EmbeddedResource Include="Images\ruble.png" />
+    <EmbeddedResource Include="Images\rupee.png" />
+    <EmbeddedResource Include="Images\safari.png" />
+    <EmbeddedResource Include="Images\save.png" />
+    <EmbeddedResource Include="Images\scissors.png" />
+    <EmbeddedResource Include="Images\scribd.png" />
+    <EmbeddedResource Include="Images\search-minus.png" />
+    <EmbeddedResource Include="Images\search-plus.png" />
+    <EmbeddedResource Include="Images\search.png" />
+    <EmbeddedResource Include="Images\sellsy.png" />
+    <EmbeddedResource Include="Images\send-o.png" />
+    <EmbeddedResource Include="Images\send.png" />
+    <EmbeddedResource Include="Images\server.png" />
+    <EmbeddedResource Include="Images\share-alt-square.png" />
+    <EmbeddedResource Include="Images\share-alt.png" />
+    <EmbeddedResource Include="Images\share-square-o.png" />
+    <EmbeddedResource Include="Images\share-square.png" />
+    <EmbeddedResource Include="Images\share.png" />
+    <EmbeddedResource Include="Images\shekel.png" />
+    <EmbeddedResource Include="Images\sheqel.png" />
+    <EmbeddedResource Include="Images\shield.png" />
+    <EmbeddedResource Include="Images\ship.png" />
+    <EmbeddedResource Include="Images\shirtsinbulk.png" />
+    <EmbeddedResource Include="Images\shop.png" />
+    <EmbeddedResource Include="Images\shopping-bag.png" />
+    <EmbeddedResource Include="Images\shopping-basket.png" />
+    <EmbeddedResource Include="Images\shopping-cart.png" />
+    <EmbeddedResource Include="Images\sign-in.png" />
+    <EmbeddedResource Include="Images\sign-language.png" />
+    <EmbeddedResource Include="Images\sign-out.png" />
+    <EmbeddedResource Include="Images\signal.png" />
+    <EmbeddedResource Include="Images\signing.png" />
+    <EmbeddedResource Include="Images\simplybuilt.png" />
+    <EmbeddedResource Include="Images\sitemap.png" />
+    <EmbeddedResource Include="Images\skyatlas.png" />
+    <EmbeddedResource Include="Images\skype.png" />
+    <EmbeddedResource Include="Images\slack.png" />
+    <EmbeddedResource Include="Images\sliders.png" />
+    <EmbeddedResource Include="Images\slideshare.png" />
+    <EmbeddedResource Include="Images\smile-o.png" />
+    <EmbeddedResource Include="Images\snapchat-ghost.png" />
+    <EmbeddedResource Include="Images\snapchat-square.png" />
+    <EmbeddedResource Include="Images\snapchat.png" />
+    <EmbeddedResource Include="Images\soccer-ball-o.png" />
+    <EmbeddedResource Include="Images\sort-alpha-asc.png" />
+    <EmbeddedResource Include="Images\sort-alpha-desc.png" />
+    <EmbeddedResource Include="Images\sort-amount-asc.png" />
+    <EmbeddedResource Include="Images\sort-amount-desc.png" />
+    <EmbeddedResource Include="Images\sort-asc.png" />
+    <EmbeddedResource Include="Images\sort-desc.png" />
+    <EmbeddedResource Include="Images\sort-down.png" />
+    <EmbeddedResource Include="Images\sort-numeric-asc.png" />
+    <EmbeddedResource Include="Images\sort-numeric-desc.png" />
+    <EmbeddedResource Include="Images\sort-up.png" />
+    <EmbeddedResource Include="Images\sort.png" />
+    <EmbeddedResource Include="Images\soundcloud.png" />
+    <EmbeddedResource Include="Images\space-shuttle.png" />
+    <EmbeddedResource Include="Images\spinner.png" />
+    <EmbeddedResource Include="Images\spoon.png" />
+    <EmbeddedResource Include="Images\spotify.png" />
+    <EmbeddedResource Include="Images\square-o.png" />
+    <EmbeddedResource Include="Images\square.png" />
+    <EmbeddedResource Include="Images\stack-exchange.png" />
+    <EmbeddedResource Include="Images\stack-overflow.png" />
+    <EmbeddedResource Include="Images\star-half-empty.png" />
+    <EmbeddedResource Include="Images\star-half-full.png" />
+    <EmbeddedResource Include="Images\star-half-o.png" />
+    <EmbeddedResource Include="Images\star-half.png" />
+    <EmbeddedResource Include="Images\star-o.png" />
+    <EmbeddedResource Include="Images\star.png" />
+    <EmbeddedResource Include="Images\steam-square.png" />
+    <EmbeddedResource Include="Images\steam.png" />
+    <EmbeddedResource Include="Images\step-backward.png" />
+    <EmbeddedResource Include="Images\step-forward.png" />
+    <EmbeddedResource Include="Images\stethoscope.png" />
+    <EmbeddedResource Include="Images\sticky-note-o.png" />
+    <EmbeddedResource Include="Images\sticky-note.png" />
+    <EmbeddedResource Include="Images\stop-circle-o.png" />
+    <EmbeddedResource Include="Images\stop-circle.png" />
+    <EmbeddedResource Include="Images\stop.png" />
+    <EmbeddedResource Include="Images\street-view.png" />
+    <EmbeddedResource Include="Images\strikethrough.png" />
+    <EmbeddedResource Include="Images\stumbleupon-circle.png" />
+    <EmbeddedResource Include="Images\stumbleupon.png" />
+    <EmbeddedResource Include="Images\subscript.png" />
+    <EmbeddedResource Include="Images\subway.png" />
+    <EmbeddedResource Include="Images\suitcase.png" />
+    <EmbeddedResource Include="Images\sun-o.png" />
+    <EmbeddedResource Include="Images\superscript.png" />
+    <EmbeddedResource Include="Images\support.png" />
+    <EmbeddedResource Include="Images\table.png" />
+    <EmbeddedResource Include="Images\tablet.png" />
+    <EmbeddedResource Include="Images\tachometer.png" />
+    <EmbeddedResource Include="Images\tag.png" />
+    <EmbeddedResource Include="Images\tags.png" />
+    <EmbeddedResource Include="Images\tasks.png" />
+    <EmbeddedResource Include="Images\taxi.png" />
+    <EmbeddedResource Include="Images\television.png" />
+    <EmbeddedResource Include="Images\tencent-weibo.png" />
+    <EmbeddedResource Include="Images\terminal.png" />
+    <EmbeddedResource Include="Images\text-height.png" />
+    <EmbeddedResource Include="Images\text-width.png" />
+    <EmbeddedResource Include="Images\th-large.png" />
+    <EmbeddedResource Include="Images\th-list.png" />
+    <EmbeddedResource Include="Images\th.png" />
+    <EmbeddedResource Include="Images\theatre.png" />
+    <EmbeddedResource Include="Images\thumb-tack.png" />
+    <EmbeddedResource Include="Images\thumbs-down.png" />
+    <EmbeddedResource Include="Images\thumbs-o-down.png" />
+    <EmbeddedResource Include="Images\thumbs-o-up.png" />
+    <EmbeddedResource Include="Images\thumbs-up.png" />
+    <EmbeddedResource Include="Images\ticket.png" />
+    <EmbeddedResource Include="Images\times-circle-o.png" />
+    <EmbeddedResource Include="Images\times-circle.png" />
+    <EmbeddedResource Include="Images\times.png" />
+    <EmbeddedResource Include="Images\tint.png" />
+    <EmbeddedResource Include="Images\toggle-down.png" />
+    <EmbeddedResource Include="Images\toggle-left.png" />
+    <EmbeddedResource Include="Images\toggle-off.png" />
+    <EmbeddedResource Include="Images\toggle-on.png" />
+    <EmbeddedResource Include="Images\toggle-right.png" />
+    <EmbeddedResource Include="Images\toggle-up.png" />
+    <EmbeddedResource Include="Images\town.png" />
+    <EmbeddedResource Include="Images\trademark.png" />
+    <EmbeddedResource Include="Images\train.png" />
+    <EmbeddedResource Include="Images\transgender-alt.png" />
+    <EmbeddedResource Include="Images\transgender.png" />
+    <EmbeddedResource Include="Images\trash-o.png" />
+    <EmbeddedResource Include="Images\trash.png" />
+    <EmbeddedResource Include="Images\tree.png" />
+    <EmbeddedResource Include="Images\trello.png" />
+    <EmbeddedResource Include="Images\tripadvisor.png" />
+    <EmbeddedResource Include="Images\trophy.png" />
+    <EmbeddedResource Include="Images\truck.png" />
+    <EmbeddedResource Include="Images\try.png" />
+    <EmbeddedResource Include="Images\tty.png" />
+    <EmbeddedResource Include="Images\tumblr-square.png" />
+    <EmbeddedResource Include="Images\tumblr.png" />
+    <EmbeddedResource Include="Images\turkish-lira.png" />
+    <EmbeddedResource Include="Images\tv.png" />
+    <EmbeddedResource Include="Images\twitch.png" />
+    <EmbeddedResource Include="Images\twitter-square.png" />
+    <EmbeddedResource Include="Images\twitter.png" />
+    <EmbeddedResource Include="Images\umbrella.png" />
+    <EmbeddedResource Include="Images\underline.png" />
+    <EmbeddedResource Include="Images\undo.png" />
+    <EmbeddedResource Include="Images\universal-access.png" />
+    <EmbeddedResource Include="Images\university.png" />
+    <EmbeddedResource Include="Images\unlink.png" />
+    <EmbeddedResource Include="Images\unlock-alt.png" />
+    <EmbeddedResource Include="Images\unlock.png" />
+    <EmbeddedResource Include="Images\unsorted.png" />
+    <EmbeddedResource Include="Images\upload.png" />
+    <EmbeddedResource Include="Images\usb.png" />
+    <EmbeddedResource Include="Images\usd.png" />
+    <EmbeddedResource Include="Images\user-md.png" />
+    <EmbeddedResource Include="Images\user-plus.png" />
+    <EmbeddedResource Include="Images\user-secret.png" />
+    <EmbeddedResource Include="Images\user-times.png" />
+    <EmbeddedResource Include="Images\user.png" />
+    <EmbeddedResource Include="Images\users.png" />
+    <EmbeddedResource Include="Images\venus-double.png" />
+    <EmbeddedResource Include="Images\venus-mars.png" />
+    <EmbeddedResource Include="Images\venus.png" />
+    <EmbeddedResource Include="Images\viacoin.png" />
+    <EmbeddedResource Include="Images\viadeo-square.png" />
+    <EmbeddedResource Include="Images\viadeo.png" />
+    <EmbeddedResource Include="Images\video-camera.png" />
+    <EmbeddedResource Include="Images\village.png" />
+    <EmbeddedResource Include="Images\vimeo-square.png" />
+    <EmbeddedResource Include="Images\vimeo.png" />
+    <EmbeddedResource Include="Images\vine.png" />
+    <EmbeddedResource Include="Images\vk.png" />
+    <EmbeddedResource Include="Images\volume-control-phone.png" />
+    <EmbeddedResource Include="Images\volume-down.png" />
+    <EmbeddedResource Include="Images\volume-off.png" />
+    <EmbeddedResource Include="Images\volume-up.png" />
+    <EmbeddedResource Include="Images\warning.png" />
+    <EmbeddedResource Include="Images\wechat.png" />
+    <EmbeddedResource Include="Images\weibo.png" />
+    <EmbeddedResource Include="Images\weixin.png" />
+    <EmbeddedResource Include="Images\whatsapp.png" />
+    <EmbeddedResource Include="Images\wheelchair-alt.png" />
+    <EmbeddedResource Include="Images\wheelchair.png" />
+    <EmbeddedResource Include="Images\wifi.png" />
+    <EmbeddedResource Include="Images\wikipedia-w.png" />
+    <EmbeddedResource Include="Images\windows.png" />
+    <EmbeddedResource Include="Images\won.png" />
+    <EmbeddedResource Include="Images\wordpress.png" />
+    <EmbeddedResource Include="Images\wpbeginner.png" />
+    <EmbeddedResource Include="Images\wpforms.png" />
+    <EmbeddedResource Include="Images\wrench.png" />
+    <EmbeddedResource Include="Images\xing-square.png" />
+    <EmbeddedResource Include="Images\xing.png" />
+    <EmbeddedResource Include="Images\y-combinator-square.png" />
+    <EmbeddedResource Include="Images\y-combinator.png" />
+    <EmbeddedResource Include="Images\yahoo.png" />
+    <EmbeddedResource Include="Images\yc-square.png" />
+    <EmbeddedResource Include="Images\yc.png" />
+    <EmbeddedResource Include="Images\yelp.png" />
+    <EmbeddedResource Include="Images\yen.png" />
+    <EmbeddedResource Include="Images\youtube-play.png" />
+    <EmbeddedResource Include="Images\youtube-square.png" />
+    <EmbeddedResource Include="Images\youtube.png" />
+    <EmbeddedResource Include="Images\zoo.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

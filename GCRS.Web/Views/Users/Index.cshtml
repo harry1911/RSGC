@@ -1,0 +1,68 @@
+﻿@model IEnumerable<GCRS.Base.User>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Usuarios</h2>
+
+<p>
+    @Html.ActionLink("Crear", "Create")
+</p>
+<table id ="table" class="table">
+    <thead>
+
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PrivilegesID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pasword)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Privileges.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pasword)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.UserID }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.UserID }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.UserID })
+        </td>
+    </tr>
+}
+    </tbody>
+
+</table>
+@section scripts
+{
+    <script>
+    $(document).ready(function () { $("#table").DataTable(); })
+    </script>
+}

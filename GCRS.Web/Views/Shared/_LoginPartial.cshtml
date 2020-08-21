@@ -1,0 +1,99 @@
+﻿@if (Request.IsAuthenticated)
+{
+    if (User.IsInRole("Admin"))
+    {
+        @Html.AntiForgeryToken()
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle nav-link" data-toggle="dropdown">
+                    Administración<span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>@Html.ActionLink("Usuarios", "Index", "Users", null, new { @class = "dropdown-item" })</li>
+                    <li>@Html.ActionLink("Privilegios", "Index", "Privileges", null, new { @class = "dropdown-item" })</li>
+                    <li>@Html.ActionLink("Casas", "Index", "Houses", null, new { @class = "dropdown-item" })</li>
+                    <li>@Html.ActionLink("Características(Casa)", "Index", "Features", null, new { @class = "dropdown-item" })</li>
+                    <li>@Html.ActionLink("Características(Habitación)", "Index", "RoomFeatures", null, new { @class = "dropdown-item" })</li>
+                    <li>@Html.ActionLink("Habitaciones", "Index", "Rooms", null, new { @class = "dropdown-item" })</li>
+                    <li>@Html.ActionLink("Tipos de Habitación", "Index", "RoomTypes", null, new { @class = "dropdown-item" })</li>
+                    <li>@Html.ActionLink("Conceptos", "Index", "Concepts", null, new { @class = "dropdown-item" })</li>
+                    @*<li>@Html.ActionLink("Lugares", "Index", "Places", null, new { @class = "dropdown-item" })</li>*@
+                    @*<li>@Html.ActionLink("Tipos de Lugar", "Index", "PlaceTypes", null, new { @class = "dropdown-item" })</li>*@
+                </ul>
+            </li>
+        </ul>
+    }
+
+    @Html.AntiForgeryToken()
+    if (User.IsInRole("Client"))
+    {
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle nav-link" data-toggle="dropdown">
+                    Publicaciones <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>@Html.ActionLink("Mis Publicaciones de Renta", "ListRentPublishingsClient", "RentPublishings", null, new { @class = "dropdown-item" })</li>
+                    <li>@Html.ActionLink("Mis Publicaciones de Venta", "ListPublishingsClient", "RequestSalePublishings", null, new { @class = "dropdown-item" })</li>
+                    <li>@Html.ActionLink("Mis Solicitudes de Renta", "ListRequestClient", "RequestRentPublishings", null, new { @class = "dropdown-item" })</li>
+                    <li>@Html.ActionLink("Mis Solicitudes de Venta", "ListRequestClient", "RequestSalePublishings", null, new { @class = "dropdown-item" })</li>
+                    <li>@Html.ActionLink("Mis Casas", "MyHousesList", "Houses", null, new { @class = "dropdown-item" })</li>
+                    <li>@Html.ActionLink("Mis compras", "ListBuyClient", "BuyRequests", null, new { @class = "dropdown-item" })</li>
+                    <li>@Html.ActionLink("Mis rentas", "ListRentClient", "RentRequests", null, new { @class = "dropdown-item" })</li>
+                    @*<li>@Html.ActionLink("Solicitud de Alquiler", "BeforeRequestRent", "RequestRentPublishings", null, new { @class = "fly openable-item" })</li>
+                    <li>@Html.ActionLink("Solicitud de Venta", "SellPost", "RequestSellPublishings", null, new { @class = "fly openable-item" })</li>*@
+                </ul>
+            </li>
+        </ul>
+    }
+
+    if (User.IsInRole("Realtor"))
+    {
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle nav-link" data-toggle="dropdown">
+                    Peticiones <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>@Html.ActionLink("Rentas atendidas", "ListAttendedRequest", "RequestRentPublishings", null, new { @class = "dropdown-item" })</li>
+                    <li>@Html.ActionLink("Rentas desatendidas", "ListNonAttendedRequest", "RequestRentPublishings", null, new { @class = "dropdown-item" })</li>
+                    <li>@Html.ActionLink("Ventas atendidas", "ListAttendedRequest", "RequestSalePublishings", null, new { @class = "dropdown-item" })</li>
+                    <li>@Html.ActionLink("Ventas desatendidas", "ListNonAttendedRequest", "RequestSalePublishings", null, new { @class = "dropdown-item" })</li>
+                    <li>@Html.ActionLink("Ventas aceptadas", "ListAcceptedRequest", "RequestSalePublishings", null, new { @class = "dropdown-item" })</li>
+                    <li>@Html.ActionLink("Rentas aceptadas", "ListAcceptedRequest", "RentPublishings", null, new { @class = "dropdown-item" })</li>
+                </ul>
+            </li>
+        </ul>
+    }
+
+    if (User.IsInRole("Jefe"))
+    {
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle nav-link" data-toggle="dropdown">
+                    Gerencia <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>@Html.ActionLink("Asientos Diarios", "Index", "DailySits", null, new { @class = "dropdown-item" })</li>
+                    <li>@Html.ActionLink("Reportes", "Charts", "Home", null, new { @class = "dropdown-item" })</li>
+                </ul>                    
+            </li>
+        </ul>
+    }
+
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+        <ul class="nav navbar-nav navbar-right">
+            <li class="nav-item">@Html.ActionLink("Hola " + User.Identity.Name + "!", "Index", "Manage", null, new { title = "Manage", @class = "nav-link" })</li>
+            <li class="nav-item"><a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Cerrar Sesión</a></li>
+        </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li class="nav-item">@Html.ActionLink("Registrar", "Register", "Account", null, new { @class = "nav-link" })</li>
+        <li class="nav-item">@Html.ActionLink("Iniciar Sesión", "Login", "Account", null, new { @class = "nav-link" })</li>
+    </ul>
+}

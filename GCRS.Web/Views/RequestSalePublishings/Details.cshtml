@@ -1,0 +1,73 @@
+﻿@model GCRS.Base.RequestSalePublishing
+
+@{
+    ViewBag.Title = "Detalles";
+}
+
+<h2>Detalles de la publicación</h2>
+
+<div>
+    <h4>RequestSalePublishing</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CommissionPercent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CommissionPercent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RequestStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RequestStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Realtor)
+        </dt>
+
+         @if (Model.Realtor != null)
+         {
+            <dd>
+                @Html.DisplayFor(model => model.Realtor.Name)
+            </dd>
+         }
+         else { <dd> No tiene </dd> }
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Images)
+        </dt>
+
+        <dd>
+            @foreach (var image in Model.Images)
+            {
+                <img src="@(image.Path!=null?Url.Content(image.Path):Url.Content("~/Content/Pictures/noimage.jpg"))" alt="test" width="256" height="256">
+            }
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.RequestPublishingID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

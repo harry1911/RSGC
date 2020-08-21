@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": [
+      "dom",
+      "es5",
+      "es2015"
+    ],
+    "module": "es2015",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "outDir": "./obj/ts",
+    "preserveConstEnums": true,
+    "removeComments": false,
+    "sourceMap": true,
+    "target": "es5"
+  },
+  "include": [
+    "./src/**/*"
+  ],
+  "exclude": [
+    "./node_modules"
+  ],
+  "types": [
+    "./src/typings.d.ts"
+  ],
+  "typeRoots": [
+    "./node_modules/@types/"
+  ]
+}

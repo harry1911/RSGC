@@ -1,0 +1,109 @@
+﻿@model IEnumerable<GCRS.Base.Room>
+@{
+    ViewBag.Title = "Consultas Alfanuméricas";
+}
+@{
+    //string[] filterOpt = ViewBag.FilterOpt.Split('^');
+    string[] filterOpt = new string[10];
+    string url = "/Products?productName=" + filterOpt[0] + "&minAmount=" + filterOpt[1] + "&maxAmount=" + filterOpt[2] + "&labels=" + filterOpt[3];
+    //string url = "/Products";
+}
+
+<h2>Productos</h2>
+    <p>
+        <a href="javascript:void(0)" onclick="invNav()">Filtrar</a>
+        |
+        <a href="/Query">Limpiar Filtro</a>
+    </p>
+    <div id="mySidenav" class="sidenav">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="sidenav-elem">
+                <label class="header-label">
+                    Consulta
+                </label>
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            </div>
+
+            <div class="sidenav-column">
+                <div class="sidenav-elem">
+                    <label>Características de la casa</label>
+                    <div class="form-group">
+                        <input id="productName" class="form-control" type="text" name="productName" value="@filterOpt[0]">
+                    </div>
+                </div>
+
+                <div class="sidenav-elem">
+                    <label>Dirección</label>
+                    <div class="form-group">
+                        <input id="minAmount" class="form-control" type="number" name="minAmount" value="@filterOpt[1]">
+                    </div>
+                </div>
+            </div>
+            <div class="sidenav-column">
+                <div class="sidenav-elem">
+                    <label>Municipio</label>
+                    <div class="form-group">
+                        <input id="maxAmount" class="form-control" type="number" name="maxAmount" value="@filterOpt[2]">
+                    </div>
+                </div>
+
+                <div class="sidenav-elem">
+                    <label>Provincia</label>
+                    <div class="form-group">
+                        <input id="labels" class="form-control" type="text" name="labels" value="@filterOpt[3]">
+                    </div>
+                </div>
+
+                <div class="sidenav-elem">
+                    <label>Cantidad de cuartos</label>
+                    <div class="form-group">
+                        <input id="labels" class="form-control" type="number" name="labels" value="@filterOpt[4]">
+                    </div>
+                </div>
+
+                <div class="sidenav-elem">
+                    <label>Cantidad de baños</label>
+                    <div class="form-group">
+                        <input id="labels" class="form-control" type="number" name="labels" value="@filterOpt[5]">
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidenav-elem">
+                <input class="btn btn-default" type="submit" value="Filtrar">
+            </div>
+        }
+    </div>
+    <table class="table">
+        <tr>
+            <th>
+                @*@Html.DisplayNameFor(model => model.Place.Address)*@
+            </th>
+            <th>
+                @*//bla bla*@
+            </th>
+            <th>
+                @*blabla*@
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.SquareMts)*@
+                </td>
+                <td>
+                    @*bla*@
+                </td>
+                <td>
+                    @*blabla*@
+                </td>
+                <td>
+                    @Html.ActionLink("Detalles", "Details")
+                </td>
+            </tr>
+        }
+    </table>

@@ -1,0 +1,19 @@
+﻿@model  ICollection<GCRS.Base.Room>
+<p>The rooms of the house</p>
+<ul id="Rooms">
+    @if (Model!=null)
+    {
+        foreach (var item in Model)
+        {
+            <li>
+                @Html.DisplayFor(m=>item)
+            </li>
+        }
+    }
+</ul>
+
+<script>
+    function() {
+        $("#Rooms").append("<li>"+"</li>");
+    }
+</script>

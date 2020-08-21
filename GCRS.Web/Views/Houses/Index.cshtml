@@ -1,0 +1,68 @@
+﻿@model IEnumerable<GCRS.Base.House>
+
+@{
+    ViewBag.Title = "Mis Casas";
+}
+
+<h2>Mis Casas</h2>
+
+<p>
+    @Html.ActionLink("Crear", "Create")
+</p>
+<table id="table" class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SquareMts)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WaterFreq)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Owner)
+            </th>
+            <th>
+                Habitaciones
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SquareMts)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WaterFreq)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Owner.Name)
+                </td>
+                <td>
+                    @ViewBag.Info[item.HouseID]
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.HouseID }) |
+                    @Html.ActionLink("Detalles", "Details", new { id = item.HouseID }) |
+                    @Html.ActionLink("Elminar", "Delete", new { id = item.HouseID })
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+@section scripts
+{
+    <script>
+    $(document).ready(function () { $("#table").DataTable(); })
+    </script>
+}

@@ -1,0 +1,115 @@
+﻿@model GCRS.Base.RentRegistry
+
+@{
+    ViewBag.Title = "Detalles de Renta";
+}
+
+<h2>Detalles de Renta</h2>
+
+@*<div>
+    <h4>RentRegistry</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Client.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Client.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RentPublishing.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RentPublishing.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Start)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Start)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Finish)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Finish)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RentPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RentPrice)
+        </dd>
+
+    </dl>
+</div>*@
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Client.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RentPublishing.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Start)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Finish)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RentPrice)
+        </th>
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayFor(model => model.Client.Name)
+        </th>
+        <th>
+            @Html.DisplayFor(model => model.RentPublishing.Description)
+        </th>
+        <th>
+            @Html.DisplayFor(model => model.Start)
+        </th>
+        <th>
+            @Html.DisplayFor(model => model.Finish)
+        </th>
+        <th>
+            @Html.DisplayFor(model => model.RentPrice)
+        </th>
+    </tr>
+</table>
+
+<h3>Servicios</h3>
+
+<table class="table">
+    <tr>
+        <th>
+            Descripción
+        </th>
+        <th>
+            Precio
+        </th>
+    </tr>
+    @foreach (var item in Model.Services)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+        </tr>
+    }
+</table>
+
+<p>
+    @Html.ActionLink("Regresar", "ListRentRegPub/" + (int)ViewBag.ID, "RentPublishings")
+</p>

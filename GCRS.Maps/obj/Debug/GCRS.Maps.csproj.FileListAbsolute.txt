@@ -1,0 +1,2 @@
+D:\Jose\Universidad\ResumenUniversidad\003\IS\IS\GCRS.Maps\obj\Debug\GCRS.Maps.csprojAssemblyReference.cache
+D:\Jose\Universidad\ResumenUniversidad\003\IS\IS\GCRS.Maps\obj\Debug\GCRS.Maps.csproj.CoreCompileInputs.cache

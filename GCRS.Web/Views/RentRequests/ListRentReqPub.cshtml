@@ -1,0 +1,104 @@
+﻿@model IEnumerable<GCRS.Base.RentRequest>
+
+@{
+    ViewBag.Title = "Solicitudes de Renta";
+}
+
+<h2>Solicitudes de Renta</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Start)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Finish)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RentPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RentState)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.LastChange)
+        </th>*@
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Start)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Finish)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RentPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RentState)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.LastChange)
+            </td>*@
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id=item.RentRequestID }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.RentRequestID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.RentRequestID })*@
+                <div class="form-group">
+                    <div class="btn-group btn-group-sm" data-toggle="buttons">
+                        @if (item.RentState != GCRS.Base.RentRequest.Estados.Reject && item.RentState != GCRS.Base.RentRequest.Estados.Accept)
+                        {
+                            if (User.IsInRole("Client"))
+                            {
+                                if (item.LastChange == GCRS.Base.Change.Client && item.RentState == GCRS.Base.RentRequest.Estados.Negotiation2)
+                                {
+                                    <input type="submit" value="Aceptar" class="btn btn-success" onclick="location.href='@Url.Action("AcceptRequest", "RentRequests", new { id1 = ViewBag.ID, id2 = item.RentRequestID })'" />
+                                    <input type="submit" value="Negociar" class="btn btn-success" onclick="location.href='@Url.Action("Negotiation2ToPending2", "RentRequests", new { id1 = ViewBag.ID, id2 = item.RentRequestID })'" />
+                                    @*<input type="submit" value="Pass" class="btn btn-success" onclick="location.href='@Url.Action("Pass", "RentRequests", new { id1 = ViewBag.ID, id2 = item.RentRequestID })'" />*@
+                                }
+                                else if (item.LastChange == GCRS.Base.Change.Realtor && item.RentState == GCRS.Base.RentRequest.Estados.Negotiation2)
+                                {
+                                    <input type="submit" value="Negociar" class="btn btn-success" onclick="location.href='@Url.Action("Negotiation2ToPending2", "RentRequests", new { id1 = ViewBag.ID, id2 = item.RentRequestID })'" />
+                                    <input type="submit" value="Pass" class="btn btn-success" onclick="location.href='@Url.Action("Pass", "RentRequests", new { id1 = ViewBag.ID, id2 = item.RentRequestID })'" />
+                                }
+                                <input type="submit" value="Denegar" class="btn btn-danger" onclick="location.href='@Url.Action("RejectRequest", "RentRequests", new { id1 = ViewBag.ID, id2 = item.RentRequestID })'" />
+                            }
+                            else if (item.LastChange != GCRS.Base.Change.Realtor)
+                            {
+                                if (item.RentState == GCRS.Base.RentRequest.Estados.Pending)
+                                {
+                                    <input type="submit" value="Negociar" class="btn btn-success" onclick="location.href='@Url.Action("PendingToNegotiation", "RentRequests", new { id1 = ViewBag.ID, id2 = item.RentRequestID })'" />
+                                    if (item.LastChange == GCRS.Base.Change.Owner)
+                                    {
+                                        <input type="submit" value="Pass" class="btn btn-success" onclick="location.href='@Url.Action("Pass", "RentRequests", new { id1 = ViewBag.ID, id2 = item.RentRequestID })'" />
+                                    }
+                                    <input type="submit" value="Avanzar" class="btn btn-success" onclick="location.href='@Url.Action("PendingToPending2", "RentRequests", new { id1 = ViewBag.ID, id2 = item.RentRequestID })'" />
+                                }
+                                else if (item.RentState == GCRS.Base.RentRequest.Estados.Pending2)
+                                {
+                                    <input type="submit" value="Negociar" class="btn btn-success" onclick="location.href='@Url.Action("Pending2ToNegotiation2", "RentRequests", new { id1 = ViewBag.ID, id2 = item.RentRequestID })'" />
+                                    if (item.LastChange == GCRS.Base.Change.Client)
+                                    {
+                                        <input type="submit" value="Pass" class="btn btn-success" onclick="location.href='@Url.Action("Pass", "RentRequests", new { id1 = ViewBag.ID, id2 = item.RentRequestID })'" />
+                                    }
+                                    <input type="submit" value="Avanzar" class="btn btn-success" onclick="location.href='@Url.Action("Pending2ToPending", "RentRequests", new { id1 = ViewBag.ID, id2 = item.RentRequestID })'" />
+                                }
+                            }
+                            <input type="submit" value="Detalles" class="btn btn-success" onclick="location.href='@Url.Action("Details", "RentRequests", new { id1 = ViewBag.ID, id2 = item.RentRequestID })'" />
+                        }
+                        else
+                        {
+                            <input type="submit" value="Detalles" class="btn btn-primary" onclick="location.href='@Url.Action("Details", "RentRequests", new { id1 = ViewBag.ID, id2 = item.RentRequestID })'" />
+                        }
+                    </div>
+                </div>
+
+            </td>
+        </tr>
+    }
+
+</table>

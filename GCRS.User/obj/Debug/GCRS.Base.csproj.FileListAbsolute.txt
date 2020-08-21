@@ -1,0 +1,2 @@
+D:\Jose\Universidad\ResumenUniversidad\003\IS\IS\GCRS.User\obj\Debug\GCRS.Base.csprojAssemblyReference.cache
+D:\Jose\Universidad\ResumenUniversidad\003\IS\IS\GCRS.User\obj\Debug\GCRS.Base.csproj.CoreCompileInputs.cache

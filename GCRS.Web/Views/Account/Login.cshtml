@@ -1,0 +1,46 @@
+﻿@using GCRS.Web.ViewModels
+
+@model LoginViewModel
+@{
+    ViewBag.Title = "Iniciar Sesión";
+}
+
+<br />
+<center>
+    <h2>@ViewBag.Title</h2>
+    <div>
+        <div class="col-md-12">
+            <section id="loginForm">
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <br />
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @required = "", @autofocus = "", @placeholder = "Nombre" })
+                            @*@Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger" })*@
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", @required = "", @autofocus = "", @placeholder = "Contraseña" })
+                            @*@Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })*@
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Entrar" class="btn btn-default btn-primary" />
+                        </div>
+                    </div>
+                    <p>
+                        @Html.ActionLink("Registrar", "Register")
+                    </p>
+                    @* Enable this once you have account confirmation enabled for password reset functionality
+                        <p>
+                            @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                        </p>*@
+                }
+            </section>
+        </div>
+    </div>
+</center>
